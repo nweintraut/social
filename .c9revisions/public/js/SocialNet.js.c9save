@@ -7,3 +7,4 @@
 {"ts":1366995046136,"patch":[[{"diffs":[[0,"\n    };\n"],[1,"    return {\n        initialize: initialize;\n    }\n"],[0,"});"]],"start1":103,"start2":103,"length1":11,"length2":62}]],"length":165,"saved":false}
 {"ts":1366995048207,"patch":[[{"diffs":[[0,"itialize"],[-1,";"],[0,"\n    }\n}"]],"start1":146,"start2":146,"length1":17,"length2":16}]],"length":164,"saved":false}
 {"ts":1366995051799,"patch":[[{"diffs":[[0,"ze\n    }"],[1,";"],[0,"\n});"]],"start1":152,"start2":152,"length1":12,"length2":13}]],"length":165,"saved":false}
+{"ts":1366995096392,"patch":[[{"diffs":[[0,"    "],[-1,"alert(\"Made it\""],[1,"indexView.render("],[0,");\n "]],"start1":82,"start2":82,"length1":23,"length2":25}]],"length":167,"saved":false}

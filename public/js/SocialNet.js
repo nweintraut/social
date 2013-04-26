@@ -1,6 +1,6 @@
 define(['views/index'], function(indexView){
     var initialize = function(){
-        alert("Made it");
+        indexView.render();
     };
     return {
         initialize: initialize
