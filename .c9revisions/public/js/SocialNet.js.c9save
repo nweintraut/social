@@ -1,0 +1,9 @@
+{"ts":1366994734890,"silentsave":true,"restoring":false,"patch":[[{"diffs":[[1,"console.log(\"SocialNet.js placeholder\");"]],"start1":0,"start2":0,"length1":0,"length2":40}]],"length":40}
+{"contributors":[],"silentsave":false,"ts":1366994734755,"patch":[[{"diffs":[[0,"older\");"],[1,"\ninitialize(SocialNet){\n    alert(\"Made it to initialize\");\n};"]],"start1":32,"start2":32,"length1":8,"length2":70}]],"length":102,"saved":false}
+{"ts":1366994771567,"patch":[[{"diffs":[[0,"lder\");\n"],[1,"function "],[0,"initiali"]],"start1":33,"start2":33,"length1":16,"length2":25}]],"length":111,"saved":false}
+{"ts":1366994773765,"patch":[[{"diffs":[[0,"ize\");\n}"],[-1,";"]],"start1":102,"start2":102,"length1":9,"length2":8}]],"length":110,"saved":false}
+{"ts":1366994908629,"patch":[[{"diffs":[[-1,"console.log(\"SocialNet.js placeholder\");\nfunction initialize(SocialNet){\n"],[1,"define(['views/index'], function(indexView){\n    var initialize = function(){\n    "],[0,"    "]],"start1":0,"start2":0,"length1":77,"length2":86},{"diffs":[[0,"e it"],[-1," to initialize\")"],[1,"\"):\n    }"],[0,";\n}"],[1,");"]],"start1":96,"start2":96,"length1":23,"length2":18}]],"length":114,"saved":false}
+{"ts":1366994910951,"patch":[[{"diffs":[[0,"it\")"],[-1,":"],[1,";"],[0,"\n   "]],"start1":98,"start2":98,"length1":9,"length2":9}]],"length":114,"saved":false}
+{"ts":1366995046136,"patch":[[{"diffs":[[0,"\n    };\n"],[1,"    return {\n        initialize: initialize;\n    }\n"],[0,"});"]],"start1":103,"start2":103,"length1":11,"length2":62}]],"length":165,"saved":false}
+{"ts":1366995048207,"patch":[[{"diffs":[[0,"itialize"],[-1,";"],[0,"\n    }\n}"]],"start1":146,"start2":146,"length1":17,"length2":16}]],"length":164,"saved":false}
+{"ts":1366995051799,"patch":[[{"diffs":[[0,"ze\n    }"],[1,";"],[0,"\n});"]],"start1":152,"start2":152,"length1":12,"length2":13}]],"length":165,"saved":false}
