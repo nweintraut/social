@@ -1,7 +1,9 @@
 doctype 5
-html
+html(lang="en")
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    script(data-main="js/boot", src="/js/libs/require.js")
+    script(src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js")
   body
     block content

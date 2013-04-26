@@ -1,0 +1,5 @@
+{"ts":1366992640186,"silentsave":true,"restoring":false,"patch":[[{"diffs":[[1,"doctype 5\nhtml\n  head\n    title= title\n    link(rel='stylesheet', href='/stylesheets/style.css')\n  body\n    block content"]],"start1":0,"start2":0,"length1":0,"length2":121}]],"length":121}
+{"contributors":[],"silentsave":false,"ts":1366992647461,"patch":[[{"diffs":[[0,"e.css')\n"],[1,"    script(data-main='js/boot\", src=\"/js/libs/require.js\")\n"],[0,"  body\n "]],"start1":89,"start2":89,"length1":16,"length2":75}]],"length":180,"saved":false}
+{"ts":1366992670965,"patch":[[{"diffs":[[0,"re.js\")\n"],[1,"    script(src=\"//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js\")\n"],[0,"  body\n "]],"start1":148,"start2":148,"length1":16,"length2":93}]],"length":257,"saved":false}
+{"ts":1366992836737,"patch":[[{"diffs":[[0,"ta-main="],[-1,"'"],[1,"\""],[0,"js/boot\""]],"start1":110,"start2":110,"length1":17,"length2":17}]],"length":257,"saved":false}
+{"ts":1366992894262,"patch":[[{"diffs":[[0,"e 5\nhtml"],[1,"(lang=\"en\")"],[0,"\n  head\n"]],"start1":6,"start2":6,"length1":16,"length2":27}]],"length":268,"saved":false}
