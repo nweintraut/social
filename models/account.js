@@ -30,7 +30,6 @@ var nodemailer = require('nodemailer'); // NEIL this is probably wrong
       var shaSum = crypto.createHash('sha256');
       shaSum.update(password);
       var hashedPassword = shaSum.digest('hex'); 
-      console.log("password [" + password + "] > [" + hashedPassword + "]");
       return hashedPassword;
     }
     AccountSchema.static('changePassword', function(accountId, newpassword){
@@ -65,9 +64,7 @@ var nodemailer = require('nodemailer'); // NEIL this is probably wrong
 
       Account.findOne({email:email, password: hashedPassword}, function(err, doc){
           if (err){console.log("***** Mongo Error " + err);}
-          if (doc){console.log("***** Account is: " + doc);}
-          if (null === doc) {callback(null);}
-          else {callback(doc);}
+          callback(doc);
       });
     });
     AccountSchema.static('register', function(email, password, firstName, lastName){

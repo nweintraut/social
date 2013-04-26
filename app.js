@@ -18,6 +18,7 @@ app.configure(function(){
   app.set('view engine', 'jade');
   app.use(express.favicon());
   app.use(express.logger('dev'));
+  app.use(express.limit('1mb'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser('my secret string'));

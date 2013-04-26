@@ -1,7 +1,7 @@
 var Account = require('../models/account');
 module.exports = function(app){
     app.get('/account/authenticated', function(req, res, next){
-       if (req.session.loggedIn) {
+       if (req.session.loggedIn) { 
            res.send(200);
        } else {
            res.send(401);
@@ -37,6 +37,20 @@ module.exports = function(app){
                    res.send(200);
                }
             });
+        }
+    });
+    app.get('/resetPassword', function(req, res, next){
+        var accountId = req.param('account', null);
+        res.render('resetPassword', {locals:{accountId: accountId}});
+    });
+    app.post('/resetPassword', function(req, res, next){
+        var accountId = req.param('accountId', null);
+        var password = req.param('password', null);
+        if (null !== accountId && null !== password){
+            Account.changePassword(accountId, password);
+            res.render('resetPasswordSuccess');
+        } else {
+            res.render('index');
         }
     });
 };
