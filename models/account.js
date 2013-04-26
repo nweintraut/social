@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 require('./mongodb_connection');
+var nodemailer = require('nodemailer'); // NEIL this is probably wrong
 
-module.exports = function(config, nodemailer){
+
     var crypto = require("crypto");
     var AccountSchema = new mongoose.Schema({
         email:      { type: String, unique: true},
@@ -19,13 +20,13 @@ module.exports = function(config, nodemailer){
         biography:  {type: String }
     });
     
-    var Account = mongoose.model('Account', AccountSchema);
+
     
     var registerCallback = function(err){
         if(err) {return console.log(err);}
         else { return console.log("Account was created"); }
     };
-    var changePassword = function(accountId, newpassword){
+    AccountSchema.static('changePassword', function(accountId, newpassword){
       var shaSum = crypto.createHash('sha256');
       shaSum.update(newpassword);
       var hashedPassword = shaSum.digest('hex');
@@ -34,12 +35,12 @@ module.exports = function(config, nodemailer){
                     if(err) {console.log("Error with change password " + err);}
                     else {console.log('Change password done for account ' + accountId);}
                 });
-    };
-    var forgotPassword = function(email, resetPasswordUrl, callback){
+    });
+    AccountSchema.static('forgotPassword',function(email, resetPasswordUrl, callback){
         Account.findOne({email: email}, function findAccount(err, doc){
             if(err){ callback(false);}
             else {
-                var smtpTransport = nodemailer.createTransport('SMTP', config.mail);
+                var smtpTransport = nodemailer.createTransport('SMTP', {}); // Neil need to fill in config hash
                 resetPasswordUrl += '?account=' + doc._id;
                 smtpTransport.sendMail({
                     from:       'thisapp@example.com',
@@ -52,15 +53,15 @@ module.exports = function(config, nodemailer){
                 });
             }
         });
-    };
-    var login = function(email, password, callback){
+    });
+    AccountSchema.static('login', function(email, password, callback){
       var shaSum = crypto.createHash('sha256');
       shaSum.update(password);
       Account.findOne({email:email, password: shaSum.digest('hex')}, function(err, doc){
           callback(null !== doc);
       });
-    };
-    var register = function(email, password, firstName, lastName){
+    });
+    AccountSchema.static('register', function(email, password, firstName, lastName){
         var shaSum = crypto.createHash('sha256');
         shaSum.update(password);
         console.log('Registering ' + email);
@@ -68,12 +69,6 @@ module.exports = function(config, nodemailer){
                                 password: shaSum.digest('hex')});
         user.save(registerCallback);
         console.log("Save command was sent");
-    };
-    return {
-        register: register,
-        forgotPassword: forgotPassword,
-        changePassword: changePassword,
-        login: login,
-        Account: Account
-    };    
-};
+    });
+var Account = mongoose.model('Account', AccountSchema);
+module.exports = Account;

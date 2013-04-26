@@ -1,3 +1,4 @@
+/*
 define(['views/index'], function(indexView){
     var initialize = function(){
         indexView.render();
@@ -6,6 +7,7 @@ define(['views/index'], function(indexView){
         initialize: initialize
     };
 });
+*/
 define(['router'], function(router){
     var initialize = function(){
         checkLogin(runApplication);
