@@ -1,0 +1,2 @@
+{"ts":1367000186657,"silentsave":true,"restoring":false,"patch":[[]],"length":0}
+{"contributors":[],"silentsave":false,"ts":1367000218464,"patch":[[{"diffs":[[1,"module.exports = function(app){\n    app.get('/account/authenticated', function(req, res, next){\n       if (req.session.loggedIn) {\n           res.send(200);\n       } else {\n           res.send(401);\n       }\n    });\n};"]],"start1":0,"start2":0,"length1":0,"length2":218}]],"length":218,"saved":false}

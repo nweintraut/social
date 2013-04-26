@@ -20,6 +20,11 @@ app.configure(function(){
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
+  app.use(express.cookieParser('my secret string'));
+  app.use(express.session({
+      secret: 'my secret string',
+      maxAge: 3600000
+  })); 
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
 });
@@ -28,6 +33,7 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+require('./routes/session')(app);
 app.get('/', routes.index);
 app.get('/users', user.list);
 
