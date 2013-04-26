@@ -9,6 +9,7 @@ var express = require('express')
   , http = require('http')
   , path = require('path');
 
+require('./models/account');
 var app = express();
 
 app.configure(function(){
