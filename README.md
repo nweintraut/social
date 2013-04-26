@@ -26,3 +26,13 @@ heroku ps:scale web=1
 heroku ps
 heroku config:add NODE_ENV=production
 heroku open
+----------------
+Now create the workspace/app in Cloud9 by cloning the github repository
+npm install
+need to make express file in node_modules/express/bin/ to be express.js
+click on app.js and do "Run"
+-------------
+git remote add heroku  git@heroku.com:<appname>.git
+git add . , git commit -am "Get any commits."
+git push heroku master
+git push origin master
