@@ -5,3 +5,5 @@
 {"ts":1367001513397,"patch":[[{"diffs":[[0,").val()\n"],[1,"            }, function(){\n                console.log(data);\n"],[0,"        "]],"start1":505,"start2":505,"length1":16,"length2":78}]],"length":747,"saved":false}
 {"ts":1367001521283,"patch":[[{"diffs":[[0,"    }, function("],[1,"data"],[0,"){\n             "]],"start1":521,"start2":521,"length1":32,"length2":36}]],"length":751,"saved":false}
 {"contributors":[],"silentsave":false,"ts":1367004115221,"patch":[[{"diffs":[[0,"ackbone."],[-1,"v"],[1,"V"],[0,"iew.exte"]],"start1":93,"start2":93,"length1":17,"length2":17}]],"length":751,"saved":false}
+{"contributors":[],"silentsave":false,"ts":1367006882188,"patch":[[{"diffs":[[0,"\"submit "],[-1,"f"],[1,"#registerF"],[0,"orm\": \"r"]],"start1":172,"start2":172,"length1":17,"length2":26}]],"length":760,"saved":false}
+{"ts":1367007087953,"patch":[[{"diffs":[[0,"lastName"],[1,"]"],[0,"').val()"]],"start1":386,"start2":386,"length1":16,"length2":17}]],"length":761,"saved":false}

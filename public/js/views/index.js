@@ -4,5 +4,5 @@ define(['text!templates/index.html'], function(indexTemplate) {
         render: function(){this.$el.html(indexTemplate);
         }
     });
-    return new indexView;
+    return indexView;
 });

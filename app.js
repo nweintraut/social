@@ -40,3 +40,16 @@ app.get('/users', user.list);
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
+/*
+var Account = require('./models/account');
+Account.find({}, function(err, results){
+    if (err) {console.log("Error MongoDB " + err);}
+    if (!results) {console.log("no Accounts found");}
+    else {
+        results.forEach(function(account){
+            Account.remove({_id: account.id}, function(){});
+           console.log("[" + account.email + "] [" + account.password + "]"); 
+        });
+    }
+});
+*/

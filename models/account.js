@@ -26,10 +26,15 @@ var nodemailer = require('nodemailer'); // NEIL this is probably wrong
         if(err) {return console.log(err);}
         else { return console.log("Account was created"); }
     };
-    AccountSchema.static('changePassword', function(accountId, newpassword){
+    function hashPassword(password){
       var shaSum = crypto.createHash('sha256');
-      shaSum.update(newpassword);
-      var hashedPassword = shaSum.digest('hex');
+      shaSum.update(password);
+      var hashedPassword = shaSum.digest('hex'); 
+      console.log("password [" + password + "] > [" + hashedPassword + "]");
+      return hashedPassword;
+    }
+    AccountSchema.static('changePassword', function(accountId, newpassword){
+      var hashedPassword = hashPassword(newpassword);
       Account.update({_id:accountId}, {$set: {password: hashedPassword}}, {upsert: false}, 
                 function changePasswordCallback(err){
                     if(err) {console.log("Error with change password " + err);}
@@ -55,18 +60,21 @@ var nodemailer = require('nodemailer'); // NEIL this is probably wrong
         });
     });
     AccountSchema.static('login', function(email, password, callback){
-      var shaSum = crypto.createHash('sha256');
-      shaSum.update(password);
-      Account.findOne({email:email, password: shaSum.digest('hex')}, function(err, doc){
-          callback(null !== doc);
+        console.log("In login" + email + "] [" + password);    
+      var hashedPassword = hashPassword(password);  
+
+      Account.findOne({email:email, password: hashedPassword}, function(err, doc){
+          if (err){console.log("***** Mongo Error " + err);}
+          if (doc){console.log("***** Account is: " + doc);}
+          if (null === doc) {callback(null);}
+          else {callback(doc);}
       });
     });
     AccountSchema.static('register', function(email, password, firstName, lastName){
-        var shaSum = crypto.createHash('sha256');
-        shaSum.update(password);
+      var hashedPassword = hashPassword(password);
         console.log('Registering ' + email);
         var user = new Account({email: email, name: {first: firstName, last: lastName}, 
-                                password: shaSum.digest('hex')});
+                                password: hashedPassword});
         user.save(registerCallback);
         console.log("Save command was sent");
     });

@@ -2,12 +2,12 @@ define(['text!templates/register.html'], function(registerTemplate){
     var registerView = Backbone.View.extend({
         el: $('#content'),
         events: {
-            "submit form": "register"
+            "submit #registerForm": "register"
         },
         register: function(){
             $.post('/register', {
                 firstName:  $('input[name=firstName]').val(),
-                lastName:   $('input[name=lastName').val(),
+                lastName:   $('input[name=lastName]').val(),
                 email:      $('input[name=email]').val(),
                 password:   $('input[name=password]').val()
             }, function(data){
