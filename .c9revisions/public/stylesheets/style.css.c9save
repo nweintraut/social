@@ -1,0 +1,2 @@
+{"ts":1367030226530,"silentsave":true,"restoring":false,"patch":[[{"diffs":[[1,"body {\n  padding: 50px;\n  font: 14px \"Lucida Grande\", Helvetica, Arial, sans-serif;\n}\n\na {\n  color: #00B7FF;\n}"]],"start1":0,"start2":0,"length1":0,"length2":110}]],"length":110}
+{"contributors":[],"silentsave":false,"ts":1367030201296,"patch":[[{"diffs":[[0,"0B7FF;\n}"],[1,"\nform {\n    width: 400px;\n}"]],"start1":102,"start2":102,"length1":8,"length2":35}]],"length":137,"saved":false}

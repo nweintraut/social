@@ -1,0 +1,2 @@
+{"ts":1367020844956,"silentsave":true,"restoring":false,"patch":[[]],"length":0}
+{"contributors":[],"silentsave":false,"ts":1367020812879,"patch":[[{"diffs":[[1,"<h1><%=name.first %> <%= name.last %></h1>\n\n<h2>Status Updates</h2>\n\n<ul class=\"status_list\" />"]],"start1":0,"start2":0,"length1":0,"length2":95}]],"length":95,"saved":false}

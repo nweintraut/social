@@ -6,7 +6,8 @@ require.config({
      Underscore: 'libs/underscore',
      Backbone: 'libs/backbone',
      text: 'libs/text',
-     templates: '../templates'
+     templates: '../templates',
+     SocialNetView: 'SocialNetView'
     },
     shim: {
         'Backbone': ['Underscore', 'jQuery'],

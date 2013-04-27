@@ -1,0 +1,2 @@
+{"ts":1367030401861,"silentsave":true,"restoring":false,"patch":[[]],"length":0}
+{"contributors":[],"silentsave":false,"ts":1367030381986,"patch":[[{"diffs":[[1,"define(function(require) {\n  var SocialNetView = Backbone.View.extend({\n    requireLogin: true\n  });\n\n  return SocialNetView;\n});"]],"start1":0,"start2":0,"length1":0,"length2":129}]],"length":129,"saved":false}

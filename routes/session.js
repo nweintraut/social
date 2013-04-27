@@ -33,7 +33,8 @@ module.exports = function(app){
                    return res.send(401);
                } else {
                    console.log('login was successful');
-                   req.session.loggedIn = account.id;
+                   req.session.loggedIn = true;
+                   req.session.accountId = account._id;
                    res.send(200);
                }
             });

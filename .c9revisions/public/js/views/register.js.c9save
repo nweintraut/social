@@ -7,3 +7,7 @@
 {"contributors":[],"silentsave":false,"ts":1367004115221,"patch":[[{"diffs":[[0,"ackbone."],[-1,"v"],[1,"V"],[0,"iew.exte"]],"start1":93,"start2":93,"length1":17,"length2":17}]],"length":751,"saved":false}
 {"contributors":[],"silentsave":false,"ts":1367006882188,"patch":[[{"diffs":[[0,"\"submit "],[-1,"f"],[1,"#registerF"],[0,"orm\": \"r"]],"start1":172,"start2":172,"length1":17,"length2":26}]],"length":760,"saved":false}
 {"ts":1367007087953,"patch":[[{"diffs":[[0,"lastName"],[1,"]"],[0,"').val()"]],"start1":386,"start2":386,"length1":16,"length2":17}]],"length":761,"saved":false}
+{"contributors":[],"silentsave":false,"ts":1367033839314,"patch":[[{"diffs":[[0,"efine(['"],[1,"SocialNetView','"],[0,"text!tem"]],"start1":1,"start2":1,"length1":16,"length2":32},{"diffs":[[0,"w = "],[-1,"Backbone."],[1,"SocialNet"],[0,"View"]],"start1":104,"start2":104,"length1":17,"length2":17}]],"length":777,"saved":false}
+{"ts":1367033850410,"patch":[[{"diffs":[[0,"xtend({\n"],[1,"        requireLogin: false,\n"],[0,"        "]],"start1":123,"start2":123,"length1":16,"length2":45}]],"length":806,"saved":false}
+{"ts":1367033906413,"patch":[[{"diffs":[[0,"(data);\n"],[1,"                window.location.hash ='index';                \n"],[0,"        "]],"start1":626,"start2":626,"length1":16,"length2":79}]],"length":869,"saved":false}
+{"ts":1367034005093,"patch":[[{"diffs":[[0,"unction("],[1,"SocialNetView, "],[0,"register"]],"start1":58,"start2":58,"length1":16,"length2":31}]],"length":884,"saved":false}

@@ -1,0 +1,4 @@
+{"ts":1367028850186,"silentsave":true,"restoring":false,"patch":[[]],"length":0}
+{"contributors":[],"silentsave":false,"ts":1367028856413,"patch":[[{"diffs":[[1,"var statusCollection = new StatusCollection();\n"]],"start1":0,"start2":0,"length1":0,"length2":47}]],"length":47,"saved":false}
+{"ts":1367028882759,"patch":[[{"diffs":[[0,"tion();\n"],[1,"statusCollection.url = '/accounts/me/activity';\nstatusCollection.fetch();"]],"start1":39,"start2":39,"length1":8,"length2":81}]],"length":120,"saved":false}
+{"contributors":[],"silentsave":false,"ts":1367031633563,"patch":[[{"diffs":[[1,"/*\n"],[0,"var stat"]],"start1":0,"start2":0,"length1":8,"length2":11},{"diffs":[[0,"fetch();"],[1,"\n*/\ndefine(['models/Status'], function(Status) {\n  var StatusCollection = Backbone.Collection.extend({\n    model: Status\n  });\n\n  return StatusCollection;\n});"]],"start1":115,"start2":115,"length1":8,"length2":166}]],"length":281,"saved":false}

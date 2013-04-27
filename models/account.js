@@ -4,6 +4,14 @@ var nodemailer = require('nodemailer'); // NEIL this is probably wrong
 
 
     var crypto = require("crypto");
+    var Status = new mongoose.Schema({
+        name: {
+            first:  {type: String },
+            last:   {type: String }
+        },
+        status:     {type: String }
+    });
+    
     var AccountSchema = new mongoose.Schema({
         email:      { type: String, unique: true},
         password:   {type: String },
@@ -17,7 +25,9 @@ var nodemailer = require('nodemailer'); // NEIL this is probably wrong
             year:   {type: Number, min: 1900, required: false}
         },
         photoUrl:   {type: String },
-        biography:  {type: String }
+        biography:  {type: String },
+        status:     [Status],
+        activity:   [Status]
     });
     
 

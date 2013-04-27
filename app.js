@@ -7,7 +7,8 @@ var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , MemoryStore = require('connect').session.MemoryStore;
 
 require('./models/account');
 var app = express();
@@ -24,7 +25,8 @@ app.configure(function(){
   app.use(express.cookieParser('my secret string'));
   app.use(express.session({
       secret: 'my secret string',
-      maxAge: 3600000
+      maxAge: 3600000,
+      store: new MemoryStore()
   })); 
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
@@ -35,6 +37,7 @@ app.configure('development', function(){
 });
 
 require('./routes/session')(app);
+require('./routes/account')(app);
 app.get('/', routes.index);
 app.get('/users', user.list);
 

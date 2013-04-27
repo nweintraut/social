@@ -9,7 +9,8 @@
     "express": "3.0.0rc4",
     "jade": "*",
     "mongoose" : "*",
-    "nodemailer": "*"    
+    "nodemailer": "*" ,
+    "connect": "*"
   },
   "engines" : {
     "node": "0.10.x",

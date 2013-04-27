@@ -6,3 +6,10 @@
 {"ts":1367005024680,"patch":[[{"diffs":[[0,"in: function(){\n"],[1,"            alert(\"Made it\");\n"],[0,"            $.po"]],"start1":214,"start2":214,"length1":32,"length2":62}]],"length":794,"saved":false}
 {"ts":1367005106813,"patch":[[{"diffs":[[0,"(){\n"],[-1,"            alert(\"Made it\");\n"],[0,"    "]],"start1":226,"start2":226,"length1":38,"length2":8}]],"length":764,"saved":false}
 {"ts":1367005212943,"patch":[[{"diffs":[[0,"password"],[1,"]"],[0,"').val()"]],"start1":354,"start2":354,"length1":16,"length2":17}]],"length":765,"saved":false}
+{"contributors":[],"silentsave":false,"ts":1367033453887,"patch":[[{"diffs":[[0,"    "],[-1,"console.log(data)"],[1,"window.location.hash ='index'"],[0,";\n  "]],"start1":415,"start2":415,"length1":25,"length2":37}]],"length":777,"saved":false}
+{"contributors":[],"silentsave":false,"ts":1367033604437,"patch":[[{"diffs":[[0,"r').hide();\n"],[1,"            $('input[name=email]').focus();\n"],[0,"        }\n  "]],"start1":721,"start2":721,"length1":24,"length2":68}]],"length":821,"saved":false}
+{"ts":1367033649957,"patch":[[{"diffs":[[0,"w = "],[-1,"Backbone."],[1,"SocialNet"],[0,"View"]],"start1":79,"start2":79,"length1":17,"length2":17}]],"length":821,"saved":false}
+{"ts":1367033658254,"patch":[[{"diffs":[[0,"define(["],[1,"'SocialNetView', "],[0,"'text!te"]],"start1":0,"start2":0,"length1":16,"length2":33}]],"length":838,"saved":false}
+{"ts":1367033680156,"patch":[[{"diffs":[[0,"xtend({\n"],[1,"        requireLogin: false,\n"],[0,"        "]],"start1":115,"start2":115,"length1":16,"length2":45}]],"length":867,"saved":false}
+{"ts":1367033707353,"patch":[[{"diffs":[[0," false,\n"],[1,"        \n"],[0,"        "]],"start1":144,"start2":144,"length1":16,"length2":25}]],"length":876,"saved":false}
+{"ts":1367033994469,"patch":[[{"diffs":[[0,"unction("],[1,"SocialNetView, "],[0,"loginTem"]],"start1":56,"start2":56,"length1":16,"length2":31}]],"length":891,"saved":false}

@@ -1,0 +1,2 @@
+{"ts":1367031476370,"silentsave":true,"restoring":false,"patch":[[]],"length":0}
+{"contributors":[],"silentsave":false,"ts":1367031447938,"patch":[[{"diffs":[[1,"define(['SocialNetView', 'text!templates/status.html'], function(SocialNetView, statusTemplate) {\n  var statusView = SocialNetView.extend({\n    tagName: 'li',\n\n    render: function() {\n      $(this.el).html(_.template(statusTemplate,this.model.toJSON()));\n      return this;\n    }\n  });\n\n  return statusView;\n});"]],"start1":0,"start2":0,"length1":0,"length2":312}]],"length":312,"saved":false}
