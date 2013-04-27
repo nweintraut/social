@@ -1,0 +1,2 @@
+{"ts":1367037969585,"silentsave":true,"restoring":false,"patch":[[]],"length":0}
+{"contributors":[],"silentsave":false,"ts":1367037945291,"patch":[[{"diffs":[[1,"define(['models/Contact'], function(Contact) {\n  var ContactCollection = Backbone.Collection.extend({\n    model: Contact\n  });\n\n  return ContactCollection;\n});"]],"start1":0,"start2":0,"length1":0,"length2":159}]],"length":159,"saved":false}
