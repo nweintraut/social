@@ -11,6 +11,15 @@ var nodemailer = require('nodemailer'); // NEIL this is probably wrong
         },
         status:     {type: String }
     });
+    var Contact = new mongoose.Schema({
+        name: {
+            first:  {type: String },
+            last:   {type: String }
+        },
+        accountId:  {type: mongoose.Schema.ObjectId },
+        added:      {type: Date},
+        updated:    {type: Date}
+    });
     
     var AccountSchema = new mongoose.Schema({
         email:      { type: String, unique: true},
@@ -26,6 +35,7 @@ var nodemailer = require('nodemailer'); // NEIL this is probably wrong
         },
         photoUrl:   {type: String },
         biography:  {type: String },
+        contacts:   [Contact],
         status:     [Status],
         activity:   [Status]
     });
@@ -42,6 +52,36 @@ var nodemailer = require('nodemailer'); // NEIL this is probably wrong
       var hashedPassword = shaSum.digest('hex'); 
       return hashedPassword;
     }
+    AccountSchema.static('addContact', function(account, addcontact, callback){
+        var contact = {
+            name: addcontact.name,
+            accountId: addcontact._id,
+            added: new Date(),
+            updated: new Date()
+        };
+        account.contacts.push(contact);
+        account.save(callback);
+    });
+    AccountSchema.static('removeContact', function(account, contactId, callback){
+        if (null === account.contacts) {return callback(null, account);}
+        else {
+            account.contacts.forEach(function(contact){
+                if (contact.accountId === contactId) {
+                    account.contacts.remove(contact);
+                }
+            });
+            account.save(callback);
+        }
+    });
+    AccountSchema.static('hasContact', function(account, contactId){
+        if (null === account.contacts){return false;}
+        else {
+            account.contacts.forEach(function(contact){
+                if (contact.accountId === contactId ) { return true;}
+            });
+            return false;
+        }
+    });
     AccountSchema.static('changePassword', function(accountId, newpassword){
       var hashedPassword = hashPassword(newpassword);
       Account.update({_id:accountId}, {$set: {password: hashedPassword}}, {upsert: false}, 

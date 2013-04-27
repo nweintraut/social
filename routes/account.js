@@ -32,6 +32,45 @@ module.exports = function(app){
             res.send(account.activity);
         });
     });   
+    app.delete('/accounts/:id/contact', function(req, res, next){
+        var accountId = req.params.id === 'me' ? req.session.accountId : req.params.id;
+        var contactId = req.param('contactId', null);
+        if(null === contactId) {return res.send(400);}
+        else {
+            Account.findById(accountId, function(err, account){
+                if (!account) {return res.send(401);}
+                Account.removeContact(account, contactId, function(err, account){
+                    res.send(200);
+                });
+            });
+        }
+    });
+    app.post('/accounts/:id/contact', function(req, res, next) {
+        var accountId = req.params.id === 'me' ? req.session.accountId : req.params.id;
+        var contactId = req.param('contactId', null);
+        if(null === contactId) {return res.send(400);}
+        else {
+            Account.findById(accountId, function(err, account){
+                if (!account) {return res.send(401);}
+                Account.findById(contactId, function(err, contact){
+                    if(err) {return res.send(401); }
+                    else {
+                        Account.addContact(account, contact, function(err, account){
+                            if (err) {return res.send(401);}
+                            else {
+                                Account.addContact(contact, account, function(err, contact){
+                                    if (err) {return res.send(401);}
+                                    else {
+                                        res.send(200);
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+        }
+    });
     app.get('/accounts/:id', function(req, res, next){
         var accountId = req.params.id === 'me' ? req.session.accountId : req.params.id;
         Account.findById(accountId, function(err, account){
@@ -39,4 +78,18 @@ module.exports = function(app){
             res.send(account);
         });
     });
+    app.post('/contacts/find', function(req, res, next) {
+        var searchStr = req.param('searchStr', null);
+        if(null === searchStr) {
+            return res.send(400);
+        } else {
+            Account.findByString(searchStr, function onSearchDone(err, accounts){
+               if (err || accounts.length === 0) {
+                   res.send(404)''
+               } else {
+                   res.send(accounts);
+               }
+            });
+        }
+    })
 };
