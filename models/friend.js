@@ -17,6 +17,7 @@ FriendSchema.statics.findFrienship = function(myId, friendId, callback){
       Friend.find().or({friender: myId1, friend: friendId1}, {friender: friendId1, friend: myId1}).exec(callback1);     
   })(myId, friendId, callback);
 };
+
 FriendSchema.statics.createFriendship = function(myId, friendId, callback){
     (function(myId1, friendId1, callback1){
         Friend.find().or({friender: myId1, friend: friendId1}, {friender: friendId1, friend: myId1}).exec(

@@ -36,6 +36,7 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+require('./routes/db')(app);
 require('./routes/session')(app);
 require('./routes/account')(app);
 app.get('/', routes.index);
@@ -84,7 +85,7 @@ account.save(function(err){
 });
 }
 
-testAccount();
+// testAccount();
 // deleteAccounts();
 function deleteAccounts() {
         Account.find({}, function(err, results){

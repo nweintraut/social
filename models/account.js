@@ -4,8 +4,9 @@ var nodemailer = require('nodemailer'); // NEIL this is probably wrong
 var Contact = require ('./contact');
 var ContactSchema = Contact.schema;
 
+
     var crypto = require("crypto");
-    var Status = new mongoose.Schema({
+    var StatusSchema = new mongoose.Schema({
         name: {
             first:  {type: String },
             last:   {type: String }
@@ -28,8 +29,8 @@ var ContactSchema = Contact.schema;
         photoUrl:   {type: String },
         biography:  {type: String },
         contacts:   [ContactSchema],
-        status:     [Status],
-        activity:   [Status]
+        status:     [StatusSchema],
+        activity:   [StatusSchema]
     });
     
    
@@ -44,10 +45,37 @@ var ContactSchema = Contact.schema;
       return hashedPassword;
     }
     AccountSchema.methods.hashPassword = hashPassword;
-    AccountSchema.methods.addContact = function(newContactId, callback){
-        var contact = new Contact({accountId: newContactId, added: (new Date()).getTime(), updated: (new Date()).getTime()});
-        this.contacts.push(contact);
-        this.save(callback);
+    
+    
+    AccountSchema.statics.addContact = function(myId, contactId, callback){
+        (function(myId1, contactId1, callback1){
+            Account.findById(myId1, function(err, me, count){
+               if(err){return callback(err, me, count);} 
+               else {
+                   Account.findById(contactId1, function(err, friend, count){
+                       if(err){return callback1(err, friend, count);}
+                       else {
+                           var date = new Date();
+                           var contact = new Contact({
+                               name: friend.name,
+                               accountId: friend._id,
+                               added: date,
+                               updated: date});
+                           me.contacts.push(contact);
+                           me.save(function(err, friender, count){
+                               if(err){return callback1(err, friender, count);}
+                               else {
+                                   contact.name = friender.name;
+                                   contact.accountId = friender._id;
+                                   friend.contacts.push(contact);
+                                   friend.save(callback1(err, friend, count));
+                               }
+                           });
+                       }
+                   });
+               }
+            });
+        })(myId, contactId, callback);
     };
     AccountSchema.methods.addFriends = function(friendId, callback){
         (function(account, friendId1, callback1){
@@ -78,62 +106,6 @@ var ContactSchema = Contact.schema;
             });
         })(this, friendId, callback);
     };
-    AccountSchema.methods.removeContact = function(contactId, callback){
-        (function(account, friendId1, callback1){
-//            account.contacts
-            Account.findById(friendId1, function(err, friend){
-                if(err) {return callback1(err);}
-                else {
-                    
-                }
-            });
-        });
-        (function(account, contactId, callback){
-            account.contacts.id(contactId).remove();  
-            account.save(function(err, result, count){
-               if (err) {callback(err)}
-               else {
-                   Account.findById(contactId, function(err, friend){
-                       if(err){callback(err);}
-                       else {
-                           friend.contacts.id(account.id).remove();
-                           friend.save(callback(err));
-                       }
-                   });
-               }
-            });
-        })(this, contactId, callback);
-    };
-    AccountSchema.static('addContact', function(account, addcontact, callback){
-        var contact = {
-            name: addcontact.name,
-            accountId: addcontact._id,
-            added: new Date(),
-            updated: new Date()
-        };
-        account.contacts.push(contact);
-        account.save(callback);
-    });
-    AccountSchema.static('removeContact', function(account, contactId, callback){
-        if (null === account.contacts) {return callback(null, account);}
-        else {
-            account.contacts.forEach(function(contact){
-                if (contact.accountId === contactId) {
-                    account.contacts.remove(contact);
-                }
-            });
-            account.save(callback);
-        }
-    });
-    AccountSchema.static('hasContact', function(account, contactId){
-        if (null === account.contacts){return false;}
-        else {
-            account.contacts.forEach(function(contact){
-                if (contact.accountId === contactId ) { return true;}
-            });
-            return false;
-        }
-    });
     AccountSchema.static('changePassword', function(accountId, newpassword){
       var hashedPassword = hashPassword(newpassword);
       Account.update({_id:accountId}, {$set: {password: hashedPassword}}, {upsert: false}, 

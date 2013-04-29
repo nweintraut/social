@@ -3,3 +3,4 @@
 {"contributors":[],"silentsave":false,"ts":1367125508917,"patch":[[{"diffs":[[0,"chema({\n"],[1,"    accountId:  {type: String, required: true },    \n//"],[0,"    acco"]],"start1":105,"start2":105,"length1":16,"length2":71}]],"length":363,"saved":false}
 {"ts":1367126799457,"patch":[[{"diffs":[[0,"ring"],[-1,", required: true"],[0," }, "]],"start1":138,"start2":138,"length1":24,"length2":8}]],"length":347,"saved":false}
 {"ts":1367127196488,"patch":[[{"diffs":[[0,"pe: "],[-1,"String"],[1,"mongoose.Schema.ObjectId"],[0," }, "]],"start1":132,"start2":132,"length1":14,"length2":32}]],"length":365,"saved":false}
+{"contributors":[],"silentsave":false,"ts":1367269079989,"patch":[[{"diffs":[[0,"ctId },\n"],[1,"    name: {\n        first:  {type: String},\n        last:   {type: String}\n    },\n"],[0,"    adde"]],"start1":213,"start2":213,"length1":16,"length2":98}]],"length":447,"saved":false}
