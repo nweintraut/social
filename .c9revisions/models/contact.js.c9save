@@ -1,0 +1,5 @@
+{"ts":1367116894270,"silentsave":true,"restoring":false,"patch":[[]],"length":0}
+{"contributors":[],"silentsave":false,"ts":1367116894455,"patch":[[{"diffs":[[1,"var mongoose = require('mongoose');\nrequire('./mongodb_connection');\n\n\nvar ContactSchema = new mongoose.Schema({\n    accountId:  {type: mongoose.Schema.ObjectId },\n    added:      {type: Date},\n    updated:    {type: Date}\n});\nvar Contact = mongoose.model('Contact', ContactSchema);\nmodule.exports = Contact;"]],"start1":0,"start2":0,"length1":0,"length2":308}]],"length":308,"saved":false}
+{"contributors":[],"silentsave":false,"ts":1367125508917,"patch":[[{"diffs":[[0,"chema({\n"],[1,"    accountId:  {type: String, required: true },    \n//"],[0,"    acco"]],"start1":105,"start2":105,"length1":16,"length2":71}]],"length":363,"saved":false}
+{"ts":1367126799457,"patch":[[{"diffs":[[0,"ring"],[-1,", required: true"],[0," }, "]],"start1":138,"start2":138,"length1":24,"length2":8}]],"length":347,"saved":false}
+{"ts":1367127196488,"patch":[[{"diffs":[[0,"pe: "],[-1,"String"],[1,"mongoose.Schema.ObjectId"],[0," }, "]],"start1":132,"start2":132,"length1":14,"length2":32}]],"length":365,"saved":false}

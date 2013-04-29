@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 require('./mongodb_connection');
 var nodemailer = require('nodemailer'); // NEIL this is probably wrong
-
+var Contact = require ('./contact');
+var ContactSchema = Contact.schema;
 
     var crypto = require("crypto");
     var Status = new mongoose.Schema({
@@ -10,15 +11,6 @@ var nodemailer = require('nodemailer'); // NEIL this is probably wrong
             last:   {type: String }
         },
         status:     {type: String }
-    });
-    var Contact = new mongoose.Schema({
-        name: {
-            first:  {type: String },
-            last:   {type: String }
-        },
-        accountId:  {type: mongoose.Schema.ObjectId },
-        added:      {type: Date},
-        updated:    {type: Date}
     });
     
     var AccountSchema = new mongoose.Schema({
@@ -35,13 +27,12 @@ var nodemailer = require('nodemailer'); // NEIL this is probably wrong
         },
         photoUrl:   {type: String },
         biography:  {type: String },
-        contacts:   [Contact],
+        contacts:   [ContactSchema],
         status:     [Status],
         activity:   [Status]
     });
     
-
-    
+   
     var registerCallback = function(err){
         if(err) {return console.log(err);}
         else { return console.log("Account was created"); }
@@ -52,6 +43,67 @@ var nodemailer = require('nodemailer'); // NEIL this is probably wrong
       var hashedPassword = shaSum.digest('hex'); 
       return hashedPassword;
     }
+    AccountSchema.methods.hashPassword = hashPassword;
+    AccountSchema.methods.addContact = function(newContactId, callback){
+        var contact = new Contact({accountId: newContactId, added: (new Date()).getTime(), updated: (new Date()).getTime()});
+        this.contacts.push(contact);
+        this.save(callback);
+    };
+    AccountSchema.methods.addFriends = function(friendId, callback){
+        (function(account, friendId1, callback1){
+            Account.findById(friendId1, function(err, friend){
+                if (err){return callback1(err);}
+                else {
+                    var date = new Date();
+                    var friendContact = new Contact({accountId: friend.id, added: date, updated: date});
+                    console.log(friend);
+                    account.contacts.push(friendContact);
+                    account.save(function(err, result, count){
+                        if (err) {return callback1(err);}
+                        else {
+                            console.log("Added friend");
+                            var date = friendContact.added;
+                            var meAsContact = new Contact({accountId: account.id, added: date, updated: date});
+                            console.log(".........\n" + meAsContact);
+
+                            friend.contacts.push(meAsContact);
+                            friend.save(function(err, result, count){
+                                console.log(friend + "\n.........");
+                                if(!err){console.log("Added me as friend");}
+                               return callback1(err); 
+                            });
+                        }
+                    });                    
+                }
+            });
+        })(this, friendId, callback);
+    };
+    AccountSchema.methods.removeContact = function(contactId, callback){
+        (function(account, friendId1, callback1){
+//            account.contacts
+            Account.findById(friendId1, function(err, friend){
+                if(err) {return callback1(err);}
+                else {
+                    
+                }
+            });
+        });
+        (function(account, contactId, callback){
+            account.contacts.id(contactId).remove();  
+            account.save(function(err, result, count){
+               if (err) {callback(err)}
+               else {
+                   Account.findById(contactId, function(err, friend){
+                       if(err){callback(err);}
+                       else {
+                           friend.contacts.id(account.id).remove();
+                           friend.save(callback(err));
+                       }
+                   });
+               }
+            });
+        })(this, contactId, callback);
+    };
     AccountSchema.static('addContact', function(account, addcontact, callback){
         var contact = {
             name: addcontact.name,
@@ -124,6 +176,13 @@ var nodemailer = require('nodemailer'); // NEIL this is probably wrong
                                 password: hashedPassword});
         user.save(registerCallback);
         console.log("Save command was sent");
+    });
+    AccountSchema.pre('save', function(next){
+        var password = this.password;
+        if (password) {
+            this.password = this.hashPassword(password);
+        }
+        next();
     });
 var Account = mongoose.model('Account', AccountSchema);
 module.exports = Account;

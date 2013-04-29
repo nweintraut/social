@@ -44,16 +44,62 @@ app.get('/users', user.list);
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
-/*
+
+
 var Account = require('./models/account');
-Account.find({}, function(err, results){
-    if (err) {console.log("Error MongoDB " + err);}
-    if (!results) {console.log("no Accounts found");}
+var Friend = require('./models/friend');
+var account = new Account({email: "a@mail.com", name: {first: "A", last: "Alast"}, password: "p"});
+function testAccount(){
+account.save(function(err){
+    if (err){console.log(err.message);}
     else {
-        results.forEach(function(account){
-            Account.remove({_id: account.id}, function(){});
-           console.log("[" + account.email + "] [" + account.password + "]"); 
+    var friend = new Account({email: "friend@mail.com", name: {first: "Friend", last: "Alast"}, password: "p"});
+    friend.save(function(err){
+        if (err) {console.log(err.message);}
+        Friend.createFriendship(account.id, friend.id, function(err, friendship){
+           if (err) {
+               deleteAccounts();
+               return console.log(err);
+           }
+           else {
+               console.log("Friendship1: " + friendship);               
+               Friend.findFrienship(friendship.friender, friendship.friend, function(err, docs, count){
+                   if(err) {return console.log(err);}
+                   else {
+                       console.log("Found frienship: " + docs + "] [" + count + "]");
+                       /*
+                       Friend.deleteFriendship(friendship.friender, friendship.friend, function(err){
+                           console.log("Deleting friendship: [" + friendship.friender + "] [" + friendship.friend + "]");
+                           if (err) {return console.log(err);}
+                           
+                       });
+                       deleteAccounts();
+                       */
+                   }
+               });
+           }
         });
+    });
     }
 });
-*/
+}
+
+testAccount();
+// deleteAccounts();
+function deleteAccounts() {
+        Account.find({}, function(err, results){
+            if (err) {console.log("Error MongoDB " + err);}
+            if (!results) {console.log("no Accounts found");}
+            else {
+                results.forEach(function(account){
+                    console.log(account);
+                    Account.remove({_id: account.id}, function(){
+                      if(err){return console.log(err);}  
+                      else{console.log("Removed: [" + account.email + "] [" + account.password + "]");}
+                    });
+                    
+                });
+            }
+        });      
+}
+

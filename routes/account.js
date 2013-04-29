@@ -85,7 +85,7 @@ module.exports = function(app){
         } else {
             Account.findByString(searchStr, function onSearchDone(err, accounts){
                if (err || accounts.length === 0) {
-                   res.send(404)''
+                   res.send(404);
                } else {
                    res.send(accounts);
                }

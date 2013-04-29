@@ -1,0 +1,2 @@
+{"ts":1367111857921,"silentsave":true,"restoring":false,"patch":[[]],"length":0}
+{"contributors":[],"silentsave":false,"ts":1367111870937,"patch":[[{"diffs":[[1,"var fileJSON 9 require(\"./package.json\");\nconsole.log(JSON.parse(fileJSON));"]],"start1":0,"start2":0,"length1":0,"length2":76}]],"length":76,"saved":false}
