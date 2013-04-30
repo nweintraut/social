@@ -34,24 +34,41 @@ module.exports = function(app){
         });
     });   
     app.delete('/accounts/:id/contact', function(req, res, next){
-
-        var contactId = req.param('contactId', null);
-        if(null === contactId) {return res.send(400);}
+        var accountId = req.params.id === 'me' ? req.session.accountId : req.params.id;
+        var friendId = req.param('contactId', null);
+        if(null === friendId) {return res.send(400);}
         else {
-            Account.findById(accountId, function(err, account){
-                if (!account) {return res.send(401);}
-                Account.removeContact(account, contactId, function(err, account){
-                    res.send(200);
-                });
+            Friend.findOneAndRemove({friender: accountId, friend: friendId}, function(err, friendship){
+                if(err) {
+                    console.log(err.message);
+                    return res.send(400);
+                }
+                else {
+                    console.log("Removed friendship " + friendship);
+                    if (req.is('json')) {
+                        return res.send(200);
+                    } else {
+                        return res.redirect("back");
+                    }
+                }
             });
         }
     });
     app.get('/accounts/:id/contacts', function(req, res, next){
         var accountId = req.params.id === 'me' ? req.session.accountId : req.params.id;
-        Account.findById(accountId, function(err, account){
-            if(err){return res.send(400);}
-            else {return res.send(account.contacts);}
-        });
+        Friend.find({friender: accountId})
+            .populate({path:'friender', select:"email _id name"})
+            .populate({path:'friend', select: "email _id name"})
+            .exec(function(err, results){
+               if(err){return res.send(400);}
+               else {
+                   if(req.is('json')) {
+                       res.send(JSON.stringify(results));
+                   } else {
+                       return res.render('db/friends4', {title: "Friends", friends: results});
+                   }
+               }
+            });
     });
     app.post('/accounts/:id/contact', function(req, res, next) {
         var accountId = req.params.id === 'me' ? req.session.accountId : req.params.id;
@@ -62,27 +79,6 @@ module.exports = function(app){
                if(err){return res.send(401);}
                else {return res.send(200);}
             });
-            /*
-            Account.findById(accountId, function(err, account){
-                if (!account) {return res.send(401);}
-                Account.findById(contactId, function(err, contact){
-                    if(err) {return res.send(401); }
-                    else {
-                        Account.addContact(account, contact, function(err, account){
-                            if (err) {return res.send(401);}
-                            else {
-                                Account.addContact(contact, account, function(err, contact){
-                                    if (err) {return res.send(401);}
-                                    else {
-                                        res.send(200);
-                                    }
-                                });
-                            }
-                        });
-                    }
-                });
-            });
-            */å
         }
     });
     app.get('/accounts/:id', function(req, res, next){

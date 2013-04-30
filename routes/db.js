@@ -119,7 +119,7 @@ module.exports = function(app){
             console.log(results);
             if(err) {return res.send(err.message);}
             else {
-                res.render('db/friends', {title: "Friends", friends: results})
+                res.render('db/friends4', {title: "Friends", friends: results})
             }
         }
         var asyncArray = [];
@@ -153,11 +153,11 @@ module.exports = function(app){
     });
     app.get('/db/friends', function(req, res, next){
         Friend.find({})
-        .populate({path:'friender', select: "email _id"})
-        .populate({path: 'friend', select: 'email _id'}).exec(function(err, results){
+        .populate({path:'friender', select: "email _id name"})
+        .populate({path: 'friend', select: 'email _id name'}).exec(function(err, results){
             if(err) {return res.send(err.message);}
             else {
-                return res.render('db/friends', {title: "Friends", friends: results});
+                return res.render('db/friends4', {title: "Friends", friends: results});
             }
         });
     });

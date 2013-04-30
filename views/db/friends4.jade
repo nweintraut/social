@@ -1,0 +1,29 @@
+extends ../layout
+
+append head
+  link(rel='stylesheet', href='/stylesheets/horizontallist.css')
+
+block content
+  div#content
+  - friends.forEach(function(friend) {
+    form(method="POST", action="/accounts/" + encodeURIComponent(friend.friender._id) + "/contact")
+      ul.horizontal
+        li.horizontal
+          a(href="/accounts/" + encodeURIComponent(friend.friender._id) + "/contacts") 
+            span= (friend.friender.name.first + " " + friend.friender.name.last)
+          br
+          span= friend.friender.email
+        li.horizontal
+          a(href="/accounts/" + encodeURIComponent(friend.friend._id) + "/contacts") 
+            span= (friend.friend.name.first + " " + friend.friend.name.last)
+          br
+          span= friend.friend.email
+        li.horizontal= friend.added
+        li.horizontal= friend.updated
+        li.horizontal
+          input(name="contactId", type="hidden", value= encodeURIComponent(friend.friend._id))
+          input(name="_method", type="hidden", value="DELETE")
+          input(type="submit", value="Delete")        
+  - });
+
+             
