@@ -1,8 +1,11 @@
 var mongoose = require('mongoose');
 require('./mongodb_connection');
 var nodemailer = require('nodemailer'); // NEIL this is probably wrong
+var Schema = mongoose.Schema;
 var Contact = require ('./contact');
 var ContactSchema = Contact.schema;
+var Friend = require('./friend');
+var async = require('async');
 
 
     var crypto = require("crypto");
@@ -30,7 +33,9 @@ var ContactSchema = Contact.schema;
         biography:  {type: String },
         contacts:   [ContactSchema],
         status:     [StatusSchema],
-        activity:   [StatusSchema]
+        activity:   [StatusSchema],
+        friends:    [{type: Schema.Types.ObjectId, ref: "Account", index: true }], // People that I made a friend
+        frienders:  [{type: Schema.Types.ObjectId, ref: "Account", index: true }], // People that friended me       
     });
     
    
@@ -47,10 +52,45 @@ var ContactSchema = Contact.schema;
     AccountSchema.methods.hashPassword = hashPassword;
     
     
+    AccountSchema.statics.addFriend = function(myId, friendId, callback){
+      (function(myId1, friendId1, callback1){
+          Account.findById(myId1, function(err, me){
+              if(err) { return callback1(err, null);}
+              else {
+                  console.log("Me is..." + me);
+                  Account.findById(friendId1, function(err, friend){
+                      if(err) {return callback1(err, null);}
+                      else {
+                          if(! me.friends) me.friends = [];
+                          me.friends.push(friend);
+                          me.save(function(err, myAccount){
+                              if(!friend.frienders) friend.frienders = [];
+                              friend.frienders.push(me);
+                              friend.save(function(err, friendAccount){
+                                  var date = new Date();    
+                                  Friend.create({friender: myAccount, friend: friend, added: date, updated: date}, 
+                                    function(err, friendShip){
+                                        console.log("Friendship is: " + friendShip);
+                                        if(err){return callback1(err, null);}
+                                        else {
+                                            var contact = {name: friendAccount.name, id: friendAccount.id,
+                                                added: friendShip.added, updated: friendShip.updated};       
+                                            return callback(null, {me: myAccount, friend:friendAccount, friendShip: friendShip, contact: contact});
+                                        }
+                                    });
+                              });
+
+                          });
+                      }
+                  });
+              }
+          });
+      })(myId, friendId, callback);  
+    };
     AccountSchema.statics.addContact = function(myId, contactId, callback){
         (function(myId1, contactId1, callback1){
             Account.findById(myId1, function(err, me, count){
-               if(err){return callback(err, me, count);} 
+               if(err){return callback1(err, me, count);} 
                else {
                    Account.findById(contactId1, function(err, friend, count){
                        if(err){return callback1(err, friend, count);}
@@ -76,6 +116,31 @@ var ContactSchema = Contact.schema;
                }
             });
         })(myId, contactId, callback);
+    };
+    AccountSchema.statics.addFriend2 = function(me0, friend0, callback0){
+        (function(me, friend, callback){
+            function done(err, results){
+                if(err){return callback(err, null);}
+                else {
+                    console.log("\n[" + results[0] + "]\n[" + results[1] + "]\n[" + results[2] +"]\n");                    
+                    if (results[0]) {
+                        return callback(null, results[0]);
+//                        return callback(new Error("friendShip already exists"), results[0]);
+                    }
+                    else if (!results[1] && !results[2]){
+                        return callback(new Error("One or both IDs invalid"), null);
+                    } else {
+                        var date = new Date();
+                        return Friend.create({friender: me, friend: friend, added: date, updated: date} , callback);
+                    }
+                }
+            }
+            var asyncArray = [];
+            asyncArray.push(function(next){Friend.findOne({friender: me, friend: friend}, next)});
+            asyncArray.push(function(next){Account.findById(me, next)});
+            asyncArray.push(function(next){Account.findById(friend, next)});
+            async.parallel(asyncArray, done);
+        })(me0, friend0, callback0);
     };
     AccountSchema.methods.addFriends = function(friendId, callback){
         (function(account, friendId1, callback1){

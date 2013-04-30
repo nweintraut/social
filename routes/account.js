@@ -48,11 +48,9 @@ module.exports = function(app){
     });
     app.get('/accounts/:id/contacts', function(req, res, next){
         var accountId = req.params.id === 'me' ? req.session.accountId : req.params.id;
-        Friend.find.or({friender: accountId}, {friend: accountId}, function(err, docs, counnt){
-           if(err) {return res.send(400);}
-           else {
-               
-           }
+        Account.findById(accountId, function(err, account){
+            if(err){return res.send(400);}
+            else {return res.send(account.contacts);}
         });
     });
     app.post('/accounts/:id/contact', function(req, res, next) {
@@ -60,6 +58,11 @@ module.exports = function(app){
         var contactId = req.param('contactId', null);
         if(null === contactId) {return res.send(400);}
         else {
+            Account.addContact(accountId, contactId, function(err, friend){
+               if(err){return res.send(401);}
+               else {return res.send(200);}
+            });
+            /*
             Account.findById(accountId, function(err, account){
                 if (!account) {return res.send(401);}
                 Account.findById(contactId, function(err, contact){
@@ -79,6 +82,7 @@ module.exports = function(app){
                     }
                 });
             });
+            */å
         }
     });
     app.get('/accounts/:id', function(req, res, next){

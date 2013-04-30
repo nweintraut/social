@@ -1,0 +1,21 @@
+extends ../layout
+
+block content
+  div#content
+  form#accounts(method="POST", action="/db/account/friend")
+    table
+      tr
+        th Account
+        th Friender
+        th Friend
+      - accounts.forEach(function(account) {
+        tr
+          td
+            a(href="/db/account/" + encodeURIComponent(account.id))= account.email
+          td
+            input(type="checkbox", name="friender", value=encodeURIComponent(account.id))
+          td
+            input(type="checkbox", name="friend", value=encodeURIComponent(account.id))
+      - });
+    input(type="submit", value="Submit")
+             

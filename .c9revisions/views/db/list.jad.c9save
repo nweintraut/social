@@ -1,0 +1,3 @@
+{"ts":1367295184676,"silentsave":true,"restoring":false,"patch":[[]],"length":0}
+{"contributors":[],"silentsave":false,"ts":1367295157032,"patch":[[{"diffs":[[1,"extends ../layout\n\nblock content\n  div#content"]],"start1":0,"start2":0,"length1":0,"length2":46}]],"length":46,"saved":false}
+{"ts":1367295763271,"patch":[[{"diffs":[[0," div#content"],[1,"\n  - accounts.forEach( function (account) {\n  \n  - });"]],"start1":34,"start2":34,"length1":12,"length2":66}]],"length":100,"saved":false}

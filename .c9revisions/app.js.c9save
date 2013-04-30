@@ -128,3 +128,5 @@
 {"ts":1367266559021,"patch":[[{"diffs":[[0,"\n}\n\n"],[-1,"// "],[0,"test"]],"start1":2765,"start2":2765,"length1":11,"length2":8},{"diffs":[[0,"ount();\n"],[1,"// "],[0,"deleteAc"]],"start1":2776,"start2":2776,"length1":16,"length2":19}]],"length":3444,"saved":false}
 {"ts":1367266571801,"patch":[[{"diffs":[[0,"\n});\n}\n\n"],[1,"// "],[0,"testAcco"]],"start1":2761,"start2":2761,"length1":16,"length2":19}]],"length":3447,"saved":false}
 {"ts":1367270796803,"patch":[[{"diffs":[[0,");\n});\n\n"],[1,"require('./routes/db')(app);\n"],[0,"require("]],"start1":951,"start2":951,"length1":16,"length2":45}]],"length":3476,"saved":false}
+{"contributors":[],"silentsave":false,"ts":1367303509912,"patch":[[{"diffs":[[1,"process.env.TZ = \"America/Los Angeles\";"],[0,"\n/**\n * "]],"start1":0,"start2":0,"length1":8,"length2":47}]],"length":3515,"saved":false}
+{"ts":1367303573554,"patch":[[{"diffs":[[0,"rica/Los"],[-1," "],[1,"_"],[0,"Angeles\""]],"start1":21,"start2":21,"length1":17,"length2":17}]],"length":3515,"saved":false}

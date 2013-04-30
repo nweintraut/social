@@ -1,0 +1,16 @@
+extends ../layout
+
+append head
+  link(rel='stylesheet', href='/stylesheets/horizontallist.css')
+
+block content
+  div#content
+  ul.horizontal
+    - friends.forEach(function(friend) {
+      li.horizontal= friend.friender.email
+      li.horizontal= friend.friend.email
+      li.horizontal= friend.added
+      li.horizontal= friend.updated
+    - });
+
+             

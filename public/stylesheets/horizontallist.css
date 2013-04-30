@@ -1,0 +1,20 @@
+ul.horizontal, ul.horizontal li {
+    margin: 0;
+    padding: 0;
+}
+ul.horizontal {
+    list-style-type: none;
+    width: 1200px;
+    background: whiteSmoke;
+    overflow: auto;
+    margin: 0 auto;
+}
+ul.horizontal li {
+    float: left;
+    width: 250px;
+    height: 99px;
+    margin: 0 1px 1px 0;
+    text-align: center;
+    background-color: gray;
+    color: white;
+}

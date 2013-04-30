@@ -9,7 +9,22 @@ var FriendSchema = new mongoose.Schema({
     updated:    {type: Date}
 });
 
-FriendSchema.index({"friender": 1, "friend": 1});
+FriendSchema.index({"friender": 1, "friend": 1}, {unique: true});
+
+FriendSchema.statics.getFriendships = function(me, callback) {
+    Friend
+        .find({friender: me})
+        .populate({
+            path: 'friend',
+            select: 'name _id',  // another possible condition is:  match: {age: {$gte:21}}
+            options: {limit: 50}
+        })
+        .exec(callback);
+};
+
+
+
+
 
 /* callback(err, friendship) */
 FriendSchema.statics.findFrienship = function(myId, friendId, callback){
