@@ -1,12 +1,15 @@
 require('./mongodb_connection');
+var findOrCreate = require('./find_or_create_plugin');
+var updated = require('./updated_plugin');
+
 var     mongoose    = require('mongoose')
     ,   Schema      = mongoose.Schema;
 
 var FriendSchema = new mongoose.Schema({
     friender:   {type: Schema.Types.ObjectId, ref: "Account", index: true},
     friend:     {type: Schema.Types.ObjectId, ref: "Account", index: true },
-    added:      {type: Date},
-    updated:    {type: Date}
+    added:      {type: Date, default: new Date()},
+    // updated:    {type: Date, default: new Date()}
 });
 
 FriendSchema.index({"friender": 1, "friend": 1}, {unique: true});
@@ -23,7 +26,8 @@ FriendSchema.statics.getFriendships = function(me, callback) {
 };
 
 
-
+FriendSchema.plugin(findOrCreate);
+FriendSchema.plugin(updated);
 
 
 /* callback(err, friendship) */

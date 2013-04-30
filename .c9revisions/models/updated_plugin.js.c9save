@@ -1,0 +1,3 @@
+{"ts":1367356482426,"silentsave":true,"restoring":false,"patch":[[]],"length":0}
+{"contributors":[],"silentsave":false,"ts":1367356463999,"patch":[[{"diffs":[[1,"module.exports = exports = function updatedPlugin(schema, options){\n    schema.add({updated: Date});\n    schema.pre('save', function(next) {\n        this.lastMod = new Date();\n        next();\n        });\n    if (options&& options.index){\n        schema.path('lastModified').index(options.index);\n        }\n    };"]],"start1":0,"start2":0,"length1":0,"length2":312}]],"length":312,"saved":false}
+{"ts":1367356482457,"patch":[[{"diffs":[[0,"th('"],[-1,"lastModifi"],[1,"updat"],[0,"ed')"]],"start1":255,"start2":255,"length1":18,"length2":13}]],"length":307,"saved":false}

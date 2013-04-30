@@ -70,14 +70,23 @@ module.exports = function(app){
                }
             });
     });
+
+
     app.post('/accounts/:id/contact', function(req, res, next) {
-        var accountId = req.params.id === 'me' ? req.session.accountId : req.params.id;
-        var contactId = req.param('contactId', null);
-        if(null === contactId) {return res.send(400);}
+        var frienderId = req.params.id === 'me' ? req.session.accountId : req.params.id;
+        var friendId = req.param('contactId', null);
+        if(null=== frienderId || null === frienderId) {return res.send(400);}
         else {
-            Account.addContact(accountId, contactId, function(err, friend){
-               if(err){return res.send(401);}
-               else {return res.send(200);}
+            var date = new Date();
+            var conditions = {friender: frienderId, friend: friendId};
+            var update = {friender: frienderId, friend: friendId, added: date, updated: date};
+            var options = {upsert: true};
+            Friend.findOrCreate(conditions, update, options, function(err, friend, created){
+               if (err) { return res.send(401);}
+               else {
+                   if(req.is('json')) {return res.send(200);}
+                   else res.redirect('/db/friends');
+               }
             });
         }
     });
