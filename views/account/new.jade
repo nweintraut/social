@@ -1,0 +1,31 @@
+extends ../non_js_layout
+
+block content
+  h1 Create an Account
+  form#createAccount(method="POST", action="/account/" + encodeURIComponent(account.id))
+    p
+      label(for="firstName") First Name
+      input#firstName(name="firstName", type="text", value=encodeURIComponent(account.name.first))  
+      label(for="lastName") Last Name
+      input#lastName(name="lastName", type="text", value=encodeURIComponent(account.name.last))
+    p
+      label(for="email") Email
+      input#email(name="email", type="text", value=account.email)
+    p
+      label(for="password") Password
+      input#password(name="password", type="password")
+
+    - if (account.id != "") {
+        p
+        input(type="hidden", name="_method", value="PUT")
+        input(type="submit", value="Update")        
+    - } else {
+        p
+        input(type="submit", value="Create or Update")
+    - }
+  a(href="/listaccounts") List All Accounts
+  - if (account.id != "") {
+    form#deleteAccount(method="POST", action="/account/" + encodeURIComponent(account.id))
+      input(type="hidden", name="_method", value="DELETE")
+      input(type="submit", value="Delete")
+  - }

@@ -65,7 +65,7 @@ module.exports = function(app){
                    if(req.is('json')) {
                        res.send(JSON.stringify(results));
                    } else {
-                       return res.render('db/friends4', {title: "Friends", friends: results});
+                       return res.render('account/friends', {title: "Friends", friends: results});
                    }
                }
             });

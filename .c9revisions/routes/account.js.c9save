@@ -69,3 +69,4 @@
 {"ts":1367356849962,"patch":[[{"diffs":[[0,"t: true}"],[1,";"],[0,"\n       "]],"start1":3600,"start2":3600,"length1":16,"length2":17}]],"length":4690,"saved":false}
 {"ts":1367357165615,"patch":[[{"diffs":[[0,"                "],[1,"if(req.is('json')) {"],[0,"return res.send("]],"start1":3777,"start2":3777,"length1":32,"length2":52},{"diffs":[[0,"n res.send(200);"],[1,"}\n                   else res.redirect('/db/')"],[0,"\n               "]],"start1":3818,"start2":3818,"length1":32,"length2":78}]],"length":4756,"saved":false}
 {"ts":1367357213656,"patch":[[{"diffs":[[0,"ct('/db/"],[1,"friends"],[0,"')"],[1,";"],[0,"\n       "]],"start1":3870,"start2":3870,"length1":18,"length2":26}]],"length":4764,"saved":false}
+{"contributors":[],"silentsave":false,"ts":1367368096558,"patch":[[{"diffs":[[0,"er('"],[-1,"db"],[1,"account"],[0,"/friends"],[-1,"4"],[0,"', {"]],"start1":2946,"start2":2946,"length1":19,"length2":23}]],"length":4768,"saved":false}

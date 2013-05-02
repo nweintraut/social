@@ -3,22 +3,23 @@ require('./mongodb_connection');
 var nodemailer = require('nodemailer'); // NEIL this is probably wrong
 var Schema = mongoose.Schema;
 var Contact = require ('./contact');
+var Status  = require('./status');
+var StatusSchema = Status.schema;
 var ContactSchema = Contact.schema;
 var Friend = require('./friend');
+var findOrCreate = require('./find_or_create_plugin');
 var async = require('async');
 
 
     var crypto = require("crypto");
+    /*
     var StatusSchema = new mongoose.Schema({
-        name: {
-            first:  {type: String },
-            last:   {type: String }
-        },
+        owner:      {type: Schema.Types.ObjectId, ref: "Account"},
         status:     {type: String }
     });
-    
+    */
     var AccountSchema = new mongoose.Schema({
-        email:      { type: String, unique: true},
+        email:      {type: String, unique: true},
         password:   {type: String },
         name: {
             first:  {type: String },
@@ -38,7 +39,7 @@ var async = require('async');
         frienders:  [{type: Schema.Types.ObjectId, ref: "Account", index: true }], // People that friended me       
     });
     
-   
+   AccountSchema.plugin(findOrCreate);
     var registerCallback = function(err){
         if(err) {return console.log(err);}
         else { return console.log("Account was created"); }
@@ -205,6 +206,14 @@ var async = require('async');
           if (err){console.log("***** Mongo Error " + err);}
           callback(doc);
       });
+    });
+    AccountSchema.statics.findByString = function(searchStr, callback) {
+        var searchRegex = new RegExp(searchStr, "i");
+        Account.find()
+        .or({'name.full': {$regex: searchRegex}}, {email: {$regex: searchRegex}}).exec(callback); 
+    };
+    AccountSchema.virtual('name.full').get(function(){
+        return this.name.first + " " + this.name.last;
     });
     AccountSchema.static('register', function(email, password, firstName, lastName){
       var hashedPassword = hashPassword(password);

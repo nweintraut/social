@@ -1,6 +1,9 @@
 var Account = require('../models/account');
 module.exports = function(app){
     app.get('/account/authenticated', function(req, res, next){
+        console.log("req.is(json)" + req.is('json') + "]");
+        console.log("req.is(html)" + req.is("html") + "]");
+        console.log(req.accepted);
        if (req.session.loggedIn) { 
            res.send(200);
        } else {
@@ -51,7 +54,21 @@ module.exports = function(app){
             Account.changePassword(accountId, password);
             res.render('resetPasswordSuccess');
         } else {
-            res.render('index');
+            res.render('resetPasswordSuccess');
         }
+    });
+    app.post('/forgotpassword', function(req, res, next){
+       var hostname = req.headers.host;
+       var resetPasswordUrl = "http://" + hostname + '/resetPassword';
+       var email = req.params('email', null);
+       if (null === email || email.length < 1) {
+           return res.send(404);
+       }
+       else {
+           Account.forgotPassword(email, resetPasswordUrl, function(success){
+              if (success){ return res.send(200);}
+              else { return res.send(404);}
+           });
+       }
     });
 };

@@ -39,6 +39,7 @@ app.configure('development', function(){
 require('./routes/db')(app);
 require('./routes/session')(app);
 require('./routes/account')(app);
+require('./routes/account2')(app);
 app.get('/', routes.index);
 app.get('/users', user.list);
 

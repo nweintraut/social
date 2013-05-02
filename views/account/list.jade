@@ -1,0 +1,27 @@
+extends ../non_js_layout
+
+block content
+  div#content
+  form#accounts(method="POST", action="/db/account/friend")
+    table
+      tr
+        th Account
+        th Name
+        th Friender
+        th Friend
+      - accounts.forEach(function(account) {
+        tr
+          td
+            a(href="/account/" + encodeURIComponent(account.id))= account.email
+          td= account.name.first + " " + account.name.last
+          td
+            input(type="checkbox", name="friender", value=encodeURIComponent(account.id))
+          td
+            input(type="checkbox", name="friend", value=encodeURIComponent(account.id))
+          td
+            a(href="/accounts/" + encodeURIComponent(account.id) + "/contacts") Friends
+      - });
+    input(type="submit", value="Submit")
+  p 
+    a(href="/account/new") Create An Account
+             
