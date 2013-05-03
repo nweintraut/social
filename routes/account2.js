@@ -25,6 +25,7 @@ module.exports = function(app){
                 var error = "";
                 if(err){error = err.message;}
                 else {
+                    console.log("[" + account.email +"] [" + account.password + "]");
                     return res.render('account/new', {title: "Account Detail", account: account, error: error});
                 }
             });
@@ -41,7 +42,7 @@ module.exports = function(app){
             },
             password:  req.param('password')  ? req.param('password')  : ""
         };
-        if (update.password === "") {delete update.password;}     
+        update.password = Account.hashPassword(update.password);  
         return {conditions: conditions, update: update};
     }
     app.post('/account', function(req, res, next){
@@ -64,7 +65,8 @@ module.exports = function(app){
             res.render('account/new', {title: "Account", account: account, error: error});
         }
         var dbData = prepareUpdate(req);
-        var options = {upsert: false, new: true};
+        console.log(dbData);
+        var options = {upsert: true, new: true};
         Account.findByIdAndUpdate(id, dbData.update, options, function(err, account){
             var error = "";
             if (err) {

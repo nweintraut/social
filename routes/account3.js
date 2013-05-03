@@ -20,19 +20,28 @@ module.exports = function(app){
                }
             });
     });
-    app.get('/account/:id/activity', function(req, res, next){
+    app.get('/accounts/:id/activity', function(req, res, next){
         if (! req.params.id || req.params.id === "") {return res.send(401);}
         var accountId = req.params.id === 'me' ? req.session.accountId : req.params.id;
-        Account.findById(accountId, function(err, account){
+        Account.findById(accountId)
+        .populate('activity')
+        .exec(function(err, account){
            if(err) {console.log("DB error in account/:id/activity " + err.message);}
            if(req.is('html')) {
                return res.send(account.activity);
            } else {
+               console.log("[" + account.activity + "]");
+               if (!account.activity) {account.activity = [];}
+               var activity = {
+                   name: {first: "Elmer", last: "Fudd"},
+                   status : "This is some type of status"
+               };
                return res.send(account.activity);
+               // return res.send(activity);
            }
         });
     });
-    app.get('/account/:id/status', function(req, res, next){
+    app.get('/accounts/:id/status', function(req, res, next){
         if (! req.params.id || req.params.id === "") {return res.send(401);}
         var accountId = req.params.id === 'me' ? req.session.accountId : req.params.id;
         Account.findById(accountId, function(err, account){
@@ -53,9 +62,9 @@ module.exports = function(app){
            if (err) {return res.send(err.message);}
            else {
                status = new Status({owner: account, status: status});
-               if (account.status) {account.status = [];}
+               if (!account.status) {account.status = [];}
                account.status.push(status);
-               if(account.activity) {account.activity = [];}
+               if(!account.activity) {account.activity = [];}
                account.activity.push(status);
                account.save(function(err, doc){
                    if (err) {console.log(err.message);}
@@ -92,16 +101,22 @@ module.exports = function(app){
         });       
     });
     app.get('/accounts/:id', function(req, res, next){
+        console.log("in /accounts/:id");
         var me = req.params.id === 'me';
-        var accountId = me ? req.session.accountId : req.params.id;
+        var accountId = req.params.id === 'me' ? req.session.accountId : req.params.id;
+        console.log ("account id = [" + accountId + "]");
         if (!accountId || accountId === "") {return res.send(400, "No id");}
-        Account.findById(accountId, function(err, account){
+        Account.findById(accountId)
+        .populate('status')
+        .populate('activity')
+        .exec(function(err, account){
             var error = "";
             if(err){
                 error = err.message;
                 return res.send(401, error);
-            } else if(req.session.accountId === "me") {
+            } else if(req.params.id === "me") {
                 account.isFriend = true;
+                console.log ("In /accounts/:id \n" + account);
                 return res.send(JSON.stringify(account));
             } else {
                 Friend.find({friender: req.session.accountId, friend:accountId}, function(err, friend){

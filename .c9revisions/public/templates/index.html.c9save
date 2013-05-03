@@ -5,3 +5,4 @@
 {"ts":1367028366560,"patch":[[{"diffs":[[0,"m\">\n    "],[1,"<fieldset>\n        <legend>Update My Status</legend>\n        <input type=\"text\", name=\"status\" />\n        <input type=\"submit\" value=\"Add\"/>\n    </fieldset>"],[0,"\n</form>"]],"start1":73,"start2":73,"length1":16,"length2":172}]],"length":246,"saved":false}
 {"ts":1367028368999,"patch":[[{"diffs":[[0,"ue=\"Add\""],[1," "],[0,"/>\n    <"]],"start1":211,"start2":211,"length1":16,"length2":17}]],"length":247,"saved":false}
 {"ts":1367028408060,"patch":[[{"diffs":[[0,"</form>\n"],[1,"<ul class=\"status_list\" />\n<p><a href=\"#profile/me\">See My Profile</a></p>\n"]],"start1":239,"start2":239,"length1":8,"length2":83}]],"length":322,"saved":false}
+{"contributors":[],"silentsave":false,"ts":1367472170093,"patch":[[{"diffs":[[0,"/a></p>\n"],[1,"<p><a href=\"#contacts/me\">See My Contacts</a></p>\n"]],"start1":314,"start2":314,"length1":8,"length2":58}]],"length":372,"saved":false}

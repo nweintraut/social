@@ -1,2 +1,3 @@
 {"ts":1367020844956,"silentsave":true,"restoring":false,"patch":[[]],"length":0}
 {"contributors":[],"silentsave":false,"ts":1367020812879,"patch":[[{"diffs":[[1,"<h1><%=name.first %> <%= name.last %></h1>\n\n<h2>Status Updates</h2>\n\n<ul class=\"status_list\" />"]],"start1":0,"start2":0,"length1":0,"length2":95}]],"length":95,"saved":false}
+{"contributors":[],"silentsave":false,"ts":1367472125338,"patch":[[{"diffs":[[0,"></h1>\n\n"],[1,"<form>\n  <fieldset>\n    <legend>Add Status</legend>\n\n    <input type=\"text\" name=\"status\" />\n    <input type=\"submit\" value=\"Add\" />\n  </fieldset>\n</form>\n\n"],[0,"<h2>Stat"]],"start1":36,"start2":36,"length1":16,"length2":172}]],"length":251,"saved":false}

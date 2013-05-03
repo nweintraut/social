@@ -9,18 +9,11 @@ var ContactSchema = Contact.schema;
 var Friend = require('./friend');
 var findOrCreate = require('./find_or_create_plugin');
 var async = require('async');
+var crypto = require("crypto");
 
-
-    var crypto = require("crypto");
-    /*
-    var StatusSchema = new mongoose.Schema({
-        owner:      {type: Schema.Types.ObjectId, ref: "Account"},
-        status:     {type: String }
-    });
-    */
     var AccountSchema = new mongoose.Schema({
-        email:      {type: String, unique: true},
-        password:   {type: String },
+        email:      {type: String, required: true, unique: true},
+        password:   {type: String, required: true},
         name: {
             first:  {type: String },
             last:   {type: String }
@@ -32,9 +25,9 @@ var async = require('async');
         },
         photoUrl:   {type: String },
         biography:  {type: String },
-        contacts:   [ContactSchema],
-        status:     [StatusSchema],
-        activity:   [StatusSchema],
+        contacts:   [{type: Schema.Types.ObjectId, ref: 'Contact'}],
+        status:     [{type: Schema.Types.ObjectId, ref: 'Status'}],
+        activity:   [{type: Schema.Types.ObjectId, ref: 'Status'}],
         friends:    [{type: Schema.Types.ObjectId, ref: "Account", index: true }], // People that I made a friend
         frienders:  [{type: Schema.Types.ObjectId, ref: "Account", index: true }], // People that friended me       
     });
@@ -45,13 +38,12 @@ var async = require('async');
         else { return console.log("Account was created"); }
     };
     function hashPassword(password){
-      var shaSum = crypto.createHash('sha256');
-      shaSum.update(password);
-      var hashedPassword = shaSum.digest('hex'); 
-      return hashedPassword;
+        if(!password || password === null || password === "") { return null;}
+        var shaSum = crypto.createHash('sha256');
+        shaSum.update(password);
+        return shaSum.digest('hex'); 
     }
-    AccountSchema.methods.hashPassword = hashPassword;
-    
+    AccountSchema.statics.hashPassword = hashPassword;
     
     AccountSchema.statics.addFriend = function(myId, friendId, callback){
       (function(myId1, friendId1, callback1){
@@ -199,13 +191,8 @@ var async = require('async');
         });
     });
     AccountSchema.static('login', function(email, password, callback){
-        console.log("In login" + email + "] [" + password);    
-      var hashedPassword = hashPassword(password);  
-
-      Account.findOne({email:email, password: hashedPassword}, function(err, doc){
-          if (err){console.log("***** Mongo Error " + err);}
-          callback(doc);
-      });
+        console.log("In login [" + email + "] [" + password + "]");     
+        Account.findOne({email:email, password: hashPassword(password)}, callback);
     });
     AccountSchema.statics.findByString = function(searchStr, callback) {
         var searchRegex = new RegExp(searchStr, "i");
@@ -215,20 +202,13 @@ var async = require('async');
     AccountSchema.virtual('name.full').get(function(){
         return this.name.first + " " + this.name.last;
     });
-    AccountSchema.static('register', function(email, password, firstName, lastName){
-      var hashedPassword = hashPassword(password);
-        console.log('Registering ' + email);
-        var user = new Account({email: email, name: {first: firstName, last: lastName}, 
-                                password: hashedPassword});
+    AccountSchema.static('register', function(email, password, firstName, lastName, registerCallback){
+        console.log("Registering [" + email + "] [" + password + "]");
+        var user = new Account({email: email, name: {first: firstName, last: lastName},
+        password: hashPassword(password)});
         user.save(registerCallback);
-        console.log("Save command was sent");
     });
-    AccountSchema.pre('save', function(next){
-        var password = this.password;
-        if (password) {
-            this.password = this.hashPassword(password);
-        }
-        next();
-    });
+
+
 var Account = mongoose.model('Account', AccountSchema);
 module.exports = Account;
