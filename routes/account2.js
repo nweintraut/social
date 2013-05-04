@@ -6,6 +6,7 @@ module.exports = function(app){
            var error = null;
          if(err){
              error = err.message;
+             return res.render(err.message);
          }
          return res.render('account/list', {title: "Accounts", accounts: accounts, error: error});
        });
@@ -21,11 +22,13 @@ module.exports = function(app){
             return res.redirect('/listaccounts');
         }
         else {
-            Account.findById(id, function(err, account){
+            Account.findById(id)
+            .exec(function(err, account){
                 var error = "";
                 if(err){error = err.message;}
                 else {
-                    console.log("[" + account.email +"] [" + account.password + "]");
+                    // console.log("[" + account.email +"] [" + account.password + "]");
+                    // console.log(JSON.stringify(account));
                     return res.render('account/new', {title: "Account Detail", account: account, error: error});
                 }
             });

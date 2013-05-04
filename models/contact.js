@@ -9,8 +9,8 @@ var ContactSchema = new mongoose.Schema({
         first:  {type: String},
         last:   {type: String}
     },
-    added:      {type: Date},
-    updated:    {type: Date}
+    added:      {type: Date, default: new Date()},
+    updated:    {type: Date, default: new Date()}
 });
 var Contact = mongoose.model('Contact', ContactSchema);
 module.exports = Contact;

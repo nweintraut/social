@@ -47,7 +47,7 @@ http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
 
-
+/*
 var Account = require('./models/account');
 var Friend = require('./models/friend');
 var account = new Account({email: "a@mail.com", name: {first: "A", last: "Alast"}, password: "p"});
@@ -69,6 +69,7 @@ account.save(function(err){
                    if(err) {return console.log(err);}
                    else {
                        console.log("Found frienship: " + docs + "] [" + count + "]");
+                       */
                        /*
                        Friend.deleteFriendship(friendship.friender, friendship.friend, function(err){
                            console.log("Deleting friendship: [" + friendship.friender + "] [" + friendship.friend + "]");
@@ -77,6 +78,7 @@ account.save(function(err){
                        });
                        deleteAccounts();
                        */
+                       /*
                    }
                });
            }
@@ -104,4 +106,4 @@ function deleteAccounts() {
             }
         });      
 }
-
+*/

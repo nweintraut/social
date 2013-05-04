@@ -2,6 +2,7 @@ var async   = require('async');
 var Account = require('../models/account');
 var Contact = require('../models/contact');
 var Friend = require('../models/friend');
+var Status = require('../models/status');
 
 module.exports = function(app){
     var models = {"Account": [
@@ -19,7 +20,7 @@ module.exports = function(app){
     function identifyModel(modelString){
         if(modelString === null) {return null;}
         var model = null;
-        var Models = [Account, Contact, Friend];
+        var Models = [Account, Contact, Friend, Status];
         for (var i=0; i < Models.length; i++){
             var name = Models[i].modelName;
             if(name === modelString) {
@@ -56,12 +57,7 @@ module.exports = function(app){
         })(me, friend, callback);
     }
     app.get('/db/cf/:index', function(req, res, next){
-        console.log("in /db/cf/:index");
-//        var index =  req.params.index ? req.params.index : 1;
-//        var modelName = "Account";
- //       var friend = models[Account][index];
-        
-        
+        console.log("in /db/cf/:index");       
     });
     app.get('/db/createfriend', function(req, res, next){
         console.log("in /db/createfriend");
@@ -98,6 +94,33 @@ module.exports = function(app){
             }
         });
     }
+    function createStatus(amount, callback){
+        Account.find({}, function(err, accounts){
+            if (err) {return callback(err, accounts);}
+            else {
+                accounts.forEach(function(account) {
+                    if (account.status === null) { account.status = [];}
+                   var email = account.email;
+                   for (var i=0; i < amount; i++) {
+                       console.log("Email: [" + email + "] [" + i + "]");
+                       var status = new Status({status: email + " status " + i, owner: account});
+                       console.log ("Status is: " + Status);
+                       account.status.push(status);
+                   }
+                   account.save(function(err, account){
+                       return callback(err, account);
+                   });
+                });
+            }
+        });
+    }
+    app.get('/db/createstatus', function(req, res, next){
+        createStatus(5, function(err, accounts){
+           if(err) {return res.send(err.message);}
+           else { res.send(JSON.stringify(accounts));}
+        });
+    }); 
+    
     function listAccounts(req, res, next) {
        Account.find({}, function(err, results){
           if(err) {return res.send(err.message );}
@@ -119,7 +142,7 @@ module.exports = function(app){
             console.log(results);
             if(err) {return res.send(err.message);}
             else {
-                res.render('db/friends4', {title: "Friends", friends: results})
+                res.render('db/friends4', {title: "Friends", friends: results});
             }
         }
         var asyncArray = [];
@@ -168,6 +191,12 @@ module.exports = function(app){
               // console.log(results);
               return res.render('db/list', {title: "Accounts", accounts: results});
           }
+       });
+    });
+    app.get('/db/status', function (req, res, next) {
+       Status.find({}, function(err, statuses){
+          if(err){return res.send(err.message);}
+          else{ return res.send(JSON.stringify(statuses));}
        });
     });
     app.get('/db/deleteall/:model', function(req, res, next){

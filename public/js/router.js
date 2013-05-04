@@ -55,7 +55,7 @@ define(['views/index', 'views/register', 'views/login',
                 var contactsCollection = new ContactCollection();
                 contactsCollection.url = '/accounts/' + contactId + '/contacts';
                 this.changeView(new ContactsView({
-                    collectoin: contactsCollection
+                    collection: contactsCollection
                 }));
                 contactsCollection.fetch();
             }

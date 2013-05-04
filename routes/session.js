@@ -13,7 +13,9 @@ module.exports = function(app){
 
             Account.register(email, password, firstName, lastName, function(err, account){
                 if(err) {return res.send(404);}
-                else { return res.send(200); }
+                else {
+                    console.log("Registered: " + account);
+                    return res.send(200); }
             });
 
     });

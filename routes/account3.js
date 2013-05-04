@@ -24,20 +24,15 @@ module.exports = function(app){
         if (! req.params.id || req.params.id === "") {return res.send(401);}
         var accountId = req.params.id === 'me' ? req.session.accountId : req.params.id;
         Account.findById(accountId)
-        .populate('activity')
         .exec(function(err, account){
            if(err) {console.log("DB error in account/:id/activity " + err.message);}
            if(req.is('html')) {
                return res.send(account.activity);
            } else {
-               console.log("[" + account.activity + "]");
+
                if (!account.activity) {account.activity = [];}
-               var activity = {
-                   name: {first: "Elmer", last: "Fudd"},
-                   status : "This is some type of status"
-               };
+             console.log("[" + account.activity + "]");
                return res.send(account.activity);
-               // return res.send(activity);
            }
         });
     });
@@ -107,8 +102,6 @@ module.exports = function(app){
         console.log ("account id = [" + accountId + "]");
         if (!accountId || accountId === "") {return res.send(400, "No id");}
         Account.findById(accountId)
-        .populate('status')
-        .populate('activity')
         .exec(function(err, account){
             var error = "";
             if(err){
@@ -137,5 +130,28 @@ module.exports = function(app){
                else { return res.send(JSON.stringify(accounts));}
            });
        }
+    });
+    app.get('/accounts', function(req, res, next){
+        Account.find({})
+        .exec(function(err, results){
+            if(err) {return res.send(err.message);}
+            else {return res.render('db/list', {title: "Accounts", accounts: results});}
+        });
+    });
+    app.get('/accounts/:id/patchcontact', function(req, res, next){
+        Account.find({email: "e@mail.com"}, function(err, accounts){
+           if (err){return res.send(err.message);}
+           else {
+               var account = accounts[0];
+               var contact = {name: {first: "Neil", last: "Weintraut"}};
+               // return res.send(JSON.stringify(account));
+               if (!account.contacts){ account.contacts =[];}
+               account.contacts.push(contact);
+               account.save(function(err, result){
+                   if (err) {return res.send(err.message);}
+                   else {return res.send(JSON.stringify(result));}
+               });
+           }
+        });
     });
 };

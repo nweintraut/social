@@ -25,9 +25,9 @@ var crypto = require("crypto");
         },
         photoUrl:   {type: String },
         biography:  {type: String },
-        contacts:   [{type: Schema.Types.ObjectId, ref: 'Contact'}],
-        status:     [{type: Schema.Types.ObjectId, ref: 'Status'}],
-        activity:   [{type: Schema.Types.ObjectId, ref: 'Status'}],
+        contacts:   [Contact.schema],
+        status:     [Status.schema],
+        activity:   [Status.schema],
         friends:    [{type: Schema.Types.ObjectId, ref: "Account", index: true }], // People that I made a friend
         frienders:  [{type: Schema.Types.ObjectId, ref: "Account", index: true }], // People that friended me       
     });

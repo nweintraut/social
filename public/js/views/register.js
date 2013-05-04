@@ -13,7 +13,7 @@ define(['SocialNetView','text!templates/register.html'], function(SocialNetView,
                 password:   $('input[name=password]').val()
             }, function(data){
                 console.log(data);
-                window.location.hash ='index';                
+                
             });
             return false;
         },
