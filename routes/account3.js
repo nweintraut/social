@@ -1,24 +1,30 @@
 var Account = require('../models/account');
 var Friend  = require('../models/friend');
 var Status  = require('../models/status');
+var Contact = require('../models/contact');
 module.exports = function(app){
     
     app.get('/accounts/:id/contacts', function(req, res, next){
         if (! req.params.id || req.params.id === "") {return res.send(401);}        
-        var accountId = req.params.id === 'me' ? req.session.accountId : req.params.id;        
-        Friend.find({friender: accountId})
-            .populate({path:'friender', select:"email _id name"})
-            .populate({path:'friend', select: "email _id name"})
-            .exec(function(err, results){
-               if(err){return res.send(400);}
-               else {
-                   if(req.is('html')) {
-                       return res.render('account/friends', {title: "Friends", friends: results});                       
-                   } else {
-                       return res.send(JSON.stringify(results));
-                   }
-               }
+        var accountId = req.params.id === 'me' ? req.session.accountId : req.params.id;     
+        console.log ("Accounts id = " + accountId);
+        Friend.find({friender: accountId}, function(err, friends){
+            if(err) {return res.send(404);}
+            var options = [{path:'friender', select: "email _id name"}, {path: 'friend', select: 'email _id name'}];        
+            Friend.populate(friends, options, function(err, results){
+                if(err) {return res.send(400);}
+                else {
+                    var contacts = [];
+                    results.forEach(function(result){
+                        var contact = new Contact({name: { first: result.friend.name.first, last: result.friend.name.last}, 
+                        added: result.added, updated: result.updated, accountId: result.friend});
+                        contacts.push(contact);
+                    });
+                    console.log("--------\n" + contacts + "\n---------");                       
+                    return res.send(contacts);                    
+                }
             });
+        });
     });
     app.get('/accounts/:id/activity', function(req, res, next){
         if (! req.params.id || req.params.id === "") {return res.send(401);}
@@ -76,7 +82,9 @@ module.exports = function(app){
             Friend.findOneAndRemove({friender: accountId, friend: friendId}, function(err, formerFriendship){
                 if(err) { return res.send(400);}
                 else {
+                    console.log("Completed delete");
                     res.send(200);
+                    
                 }
             });
         }
@@ -97,7 +105,6 @@ module.exports = function(app){
     });
     app.get('/accounts/:id', function(req, res, next){
         console.log("in /accounts/:id");
-        var me = req.params.id === 'me';
         var accountId = req.params.id === 'me' ? req.session.accountId : req.params.id;
         console.log ("account id = [" + accountId + "]");
         if (!accountId || accountId === "") {return res.send(400, "No id");}
@@ -122,12 +129,14 @@ module.exports = function(app){
         });
     });
     app.post('/contacts/find', function(req, res, next){
-       var searchStr = req.param('searchStr', null);
-       if (null === searchStr) { return res.send(404);}
+       var searchStr = req.param('searchStr') ? req.param('searchStr') : null;
+       console.log("SearchStr is [" + searchStr + "]");
+       if (null === searchStr) { return res.send(400);}
        else {
            Account.findByString(searchStr, function onSearchDone(err, accounts) {
+               console.log("Err [" + err + "] accounts { " + accounts);
                if(err || accounts.length === 0){ return res.send(404); }
-               else { return res.send(JSON.stringify(accounts));}
+               else { return res.send(accounts);}
            });
        }
     });

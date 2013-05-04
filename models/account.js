@@ -4,8 +4,6 @@ var nodemailer = require('nodemailer'); // NEIL this is probably wrong
 var Schema = mongoose.Schema;
 var Contact = require ('./contact');
 var Status  = require('./status');
-var StatusSchema = Status.schema;
-var ContactSchema = Contact.schema;
 var Friend = require('./friend');
 var findOrCreate = require('./find_or_create_plugin');
 var async = require('async');
@@ -196,11 +194,19 @@ var crypto = require("crypto");
     });
     AccountSchema.statics.findByString = function(searchStr, callback) {
         var searchRegex = new RegExp(searchStr, "i");
+//        Account.find({email: {$regex: searchRegex}}, callback);
+        Account.find({$or: [{'name.full': {$regex: searchRegex}},{'email': {$regex: searchRegex}}]}, callback);
+        /*
         Account.find()
-        .or({'name.full': {$regex: searchRegex}}, {email: {$regex: searchRegex}}).exec(callback); 
+        .or({'name.full': {$regex: searchRegex}}, {email: {$regex: searchRegex}})
+        .populate({path:'frienders', select:"email _id name"})
+        .populate({path:'friends', select: "email _id name"})
+        .exec(callback); 
+        */
     };
     AccountSchema.virtual('name.full').get(function(){
-        return this.name.first + " " + this.name.last;
+        return this.name.first;
+//        return this.name.first + " " + this.name.last;
     });
     AccountSchema.static('register', function(email, password, firstName, lastName, registerCallback){
         console.log("Registering [" + email + "] [" + password + "]");

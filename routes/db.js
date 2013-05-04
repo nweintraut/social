@@ -138,24 +138,33 @@ module.exports = function(app){
         var friends = [];
         (!Array.isArray(friender0)) ? frienders.push(friender0) : frienders = friender0;
         (!Array.isArray(friend0))   ? friends.push(friend0)   : friends = friend0;
-        function done(err, results) {
-            console.log(results);
-            if(err) {return res.send(err.message);}
-            else {
-                res.render('db/friends4', {title: "Friends", friends: results});
-            }
-        }
-        var asyncArray = [];
+        var docArray = [];
+        var date = new Date();
         frienders.forEach(function(friender){
             friends.forEach(function(friend){
-                asyncArray.push(function(next){
-                    var date = new Date();
-                    Friend.create({friender: friender, friend: friend, added: date, updated: date}, next);
-                });
-                console.log("Queued: " + friender + "] [" + friend);
+                docArray.push({friender: friender, friend: friend, added: date, updated: date});
             });           
         });
-        async.parallel(asyncArray, done);        
+        var options = [{path:'friender', select: "email _id name"}, {path: 'friend', select: 'email _id name'}];
+        Friend.create(docArray, function(err){
+            if (err) {return res.send(err.message);}
+            else {
+                var models = [];
+                if (arguments.length > 1) {
+                    for (var i = 1; i < arguments.length; i++) {
+                        console.log(arguments[i]);
+                        models.push(arguments[i]);
+                   }  
+                }
+                Friend.populate(models, options, function(err, results) {
+                    if(err) {return res.send(404);}
+                    else {
+                        res.render('db/friends4', {title: "Friends", friends: results});
+                    }
+                });
+
+            }
+        });  
     });
     
     app.get('/db/create/:model/:amount', function(req,res, next){

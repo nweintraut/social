@@ -46,6 +46,7 @@ define(['views/index', 'views/register', 'views/login',
                 this.changeView(new RegisterView());
             },
             profile: function(id) {
+                alert("In profile");
                 var model = new Account({id:id});
                 this.changeView(new ProfileView({model: model}));
                 model.fetch();
@@ -57,7 +58,7 @@ define(['views/index', 'views/register', 'views/login',
                 this.changeView(new ContactsView({
                     collection: contactsCollection
                 }));
-                contactsCollection.fetch();
+                contactsCollection.fetch({reset: true});
             }
         });
         return new SocialRouter();
