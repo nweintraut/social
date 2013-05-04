@@ -11,7 +11,9 @@
     "mongoose" : "*",
     "nodemailer": "*" ,
     "connect": "*",
-    "async": "*"
+    "async": "*",
+    "socket.io": "*",
+    "cookie": "*"
   },
   "engines" : {
     "node": "0.10.x",
