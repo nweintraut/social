@@ -19,6 +19,7 @@ function(SocialNetView, ChatSessionView, ChatItemView, chatItemTemplate){
             }
         },
         renderCollection: function(collection){
+            console.log("Rendering chat");
           var that = this;
           $('.chat_list').empty();
           collection.each(function(contact){

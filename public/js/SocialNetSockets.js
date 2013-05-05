@@ -17,7 +17,7 @@ function(sio, ContactCollection, ChatView){
                     var contactsCollection = new ContactCollection();
                     contactsCollection.url = '/accounts/me/contacts';
                     new ChatView({collection: contactsCollection, socketEvents: eventDispatcher}).render();
-                    contactsCollection.fetch();
+                    contactsCollection.fetch({reset: true});
                 });
         };
         var sendChat = function(payload){
