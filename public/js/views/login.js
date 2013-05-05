@@ -10,10 +10,16 @@ define(['SocialNetView', 'text!templates/login.html'], function(SocialNetView, l
           this.socketEvents = options.socketEvents;  
         },
         login: function(){
-            $.post('/login', {
+            var socketEvents = this.socketEvents; // capture in a local variable that is carried with the closure.
+            $.post('/login', 
+/*           {
                 email: $('input[name=email]').val(),
                 password: $('input[name=password]').val()
-            }, function(data){
+            }, 
+*/               
+            this.$('#loginForm').serialize(),            
+            function(data){
+                socketEvents.trigger('app:loggedin');
                 window.location.hash ='index';
             }).error(function(){
                 $('#error').text("Unable to login.");
