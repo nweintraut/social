@@ -27,6 +27,7 @@ module.exports = function(app){
         } else {
             console.log("Email: [" + email + "] Password [" + password + "]");
             Account.login(email, password, function(err, account){
+                if (err){ return res.send(400);}
                if (!account) {
                    console.log('login was *not* successful');
                    return res.send(401);
@@ -34,7 +35,7 @@ module.exports = function(app){
                    console.log('login was successful');
                    req.session.loggedIn = true;
                    req.session.accountId = account._id;
-                   res.send(200);
+                   return res.send(200);
                }
             });
         }

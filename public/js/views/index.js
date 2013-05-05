@@ -1,14 +1,6 @@
-/*
-define(['text!templates/index.html'], function(indexTemplate) {
-    var indexView = Backbone.View.extend({
-        el: $('#content'),
-        render: function(){this.$el.html(indexTemplate);
-        }
-    });
-    return indexView;
-});
-*/
-define(['SocialNetView', 'text!templates/index.html', 'views/status', 'models/Status'], 
+
+define(['SocialNetView', 'text!templates/index.html', 
+        'views/status', 'models/Status'], 
     function(SocialNetView, indexTemplate, StatusView, Status){
         var indexView = SocialNetView.extend({
             el: $('#content'),

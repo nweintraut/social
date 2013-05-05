@@ -1,0 +1,2 @@
+{"ts":1367710389930,"silentsave":true,"restoring":false,"patch":[[]],"length":0}
+{"contributors":[],"silentsave":false,"ts":1367710411528,"patch":[[{"diffs":[[1,"<span class=\"name\"<%= model.name.full %></span>\n<ul class=\"chat_log\">\n</ul>\n<form id=\"chatForm\">\n    <input type=\"text\", name=\"chat\"/>\n    <input type=\"submit\", value=\"Chat\">\n</form>"]],"start1":0,"start2":0,"length1":0,"length2":182}]],"length":182,"saved":false}

@@ -10,10 +10,13 @@ var express = require('express')
   , path = require('path')
   , MemoryStore = require('connect').session.MemoryStore;
 
+
 require('./models/account');
 var app = express();
 
+app.sessionStore = new MemoryStore();
 app.configure(function(){
+  app.sessionSecret = 'SocialNet secret key';
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
@@ -24,9 +27,10 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(express.cookieParser('my secret string'));
   app.use(express.session({
-      secret: 'my secret string',
+      key: 'express.sid',
+      secret: app.sessionSecret,
       maxAge: 3600000,
-      store: new MemoryStore()
+      store: app.sessionStore
   })); 
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
@@ -40,6 +44,7 @@ require('./routes/db')(app);
 require('./routes/session')(app);
 require('./routes/account3')(app);
 require('./routes/account2')(app);
+require('./routes/chat')(app);
 app.get('/', routes.index);
 app.get('/users', user.list);
 
