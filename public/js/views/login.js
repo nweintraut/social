@@ -6,6 +6,9 @@ define(['SocialNetView', 'text!templates/login.html'], function(SocialNetView, l
         events: {
             'submit #loginForm': "login"
         },
+        initialize: function(options){
+          this.socketEvents = options.socketEvents;  
+        },
         login: function(){
             $.post('/login', {
                 email: $('input[name=email]').val(),

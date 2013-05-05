@@ -13,3 +13,4 @@
 {"ts":1367033680156,"patch":[[{"diffs":[[0,"xtend({\n"],[1,"        requireLogin: false,\n"],[0,"        "]],"start1":115,"start2":115,"length1":16,"length2":45}]],"length":867,"saved":false}
 {"ts":1367033707353,"patch":[[{"diffs":[[0," false,\n"],[1,"        \n"],[0,"        "]],"start1":144,"start2":144,"length1":16,"length2":25}]],"length":876,"saved":false}
 {"ts":1367033994469,"patch":[[{"diffs":[[0,"unction("],[1,"SocialNetView, "],[0,"loginTem"]],"start1":56,"start2":56,"length1":16,"length2":31}]],"length":891,"saved":false}
+{"contributors":[],"silentsave":false,"ts":1367713098933,"patch":[[{"diffs":[[0,"gin\"\n        },\n"],[1,"        initialize: function(options){\n          this.socketEvents = options.socketEvents;  \n        },\n"],[0,"        login: f"]],"start1":257,"start2":257,"length1":32,"length2":136}]],"length":995,"saved":false}
