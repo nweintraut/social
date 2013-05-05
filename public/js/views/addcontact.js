@@ -21,7 +21,7 @@ function(SocialNetView, Contact, ContactView, addcontactTemplate)
     },
 
     render: function(resultList) {
-      var view = this;
+      // var view = this;
       this.$el.html(_.template(addcontactTemplate));
       if ( null !== resultList ) {
         _.each(resultList, function (contactJson) {

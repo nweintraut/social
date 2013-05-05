@@ -29,7 +29,8 @@ define(['views/index', 'views/register', 'views/login',
                 var statusCollection = new StatusCollection();
                 statusCollection.url = '/accounts/me/activity';
                 this.changeView(new IndexView({
-                    collection: statusCollection
+                    collection: statusCollection,
+                    socketEvents: this.socketEvents
                 }
                 ));
                 statusCollection.fetch();
@@ -47,9 +48,8 @@ define(['views/index', 'views/register', 'views/login',
                 this.changeView(new RegisterView());
             },
             profile: function(id) {
-                alert("In profile");
                 var model = new Account({id:id});
-                this.changeView(new ProfileView({model: model}));
+                this.changeView(new ProfileView({model: model, socketEvents:this.socketEvents}));
                 model.fetch();
             },
             contacts: function(id){

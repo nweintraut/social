@@ -6,7 +6,8 @@ define(['router', 'SocialNetSockets'], function(router, socket){
     var checkLogin = function(callback) {
       $.ajax('/account/authenticated', {
          method: "GET",
-         success: function(){
+         success: function(data){
+             router.socketEvents.trigger('app:loggedin', data); // added chapter 10
              return callback(true);
          },
          error: function(data) {
@@ -18,7 +19,7 @@ define(['router', 'SocialNetSockets'], function(router, socket){
         if(!authenticated) {
             window.location.hash = 'login';
         } else {
-            router.socketEvents.trigger('app:loggedin');
+            // router.socketEvents.trigger('app:loggedin'); // taken out in Chapter 10.
             window.location.hash = 'index';
         }
         Backbone.history.start();

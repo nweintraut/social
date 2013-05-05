@@ -53,6 +53,7 @@ var server = http.createServer(app).listen(app.get('port'), function(){
 });
 
 require('./routes/chat')(server, app);
+require('./appEvents')(app);
 /*
 var Account = require('./models/account');
 var Friend = require('./models/friend');

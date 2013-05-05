@@ -68,8 +68,11 @@ module.exports = function(app){
                if(!account.activity) {account.activity = [];}
                account.activity.push(status);
                account.save(function(err, doc){
-                   if (err) {console.log(err.message);}
-                   return res.send(200);
+                   if (err) {console.log(err.message);
+                   } else {
+                       app.triggerEvent('event:' + accountId, {from: accountId, data: status, action: 'status'});
+                       return res.send(200);
+                   }
                });
            }
         });

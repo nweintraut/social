@@ -7,7 +7,8 @@ define(['SocialNetView', 'text!templates/index.html',
             events: {
                 "submit #activityForm": "updateStatus"
             },
-            initialize: function(){
+            initialize: function(options){ // added Chapter 10
+                options.socketEvents.bind('status:me', this.onSocketStatusAdded, this); // added Chapter 10
                 this.collection.on('add', this.onStatusAdded, this);
                 this.collection.on('reset', this.onStatusCollectionReset, this);
             },
@@ -20,6 +21,15 @@ define(['SocialNetView', 'text!templates/index.html',
             onStatusAdded: function(status) {
                 var statusHtml = (new StatusView({model: status})).render().el;
                 $(statusHtml).prependTo('.status_list').hide().fadeIn('slow');
+            },
+            onSocketStatusAdded: function(data){
+                var newStatus = data.data;
+                var found = false;
+                this.collection.forEach(function(status){
+                    console.log("In index.onSocketStatusAdded : [" + status +"]");
+                   var name = status.get('name');
+                   if(name && name.full === newStatus.name.full && status.get('status') === newStatus.status ) { found = true;}
+                });
             },
             updateStatus: function(){
                 var statusText = $('input[name=status]').val();

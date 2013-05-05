@@ -1,7 +1,7 @@
 var Account = require('../models/account');
 module.exports = function(app){
     app.get('/account/authenticated', function(req, res, next){
-       if (req.session.loggedIn) { return res.send(200);} 
+       if (req.session.loggedIn) { return res.send(req.session.accoundId);} 
        else { return res.send(401);}
     });
     app.post('/register', function(req, res, next){
@@ -35,7 +35,7 @@ module.exports = function(app){
                    console.log('login was successful');
                    req.session.loggedIn = true;
                    req.session.accountId = account._id;
-                   return res.send(200);
+                   return res.send(account._id);
                }
             });
         }
