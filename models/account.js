@@ -48,7 +48,7 @@ var crypto = require("crypto");
           Account.findById(myId1, function(err, me){
               if(err) { return callback1(err, null);}
               else {
-                  console.log("Me is..." + me);
+                 //  console.log("Me is..." + me);
                   Account.findById(friendId1, function(err, friend){
                       if(err) {return callback1(err, null);}
                       else {
@@ -61,7 +61,7 @@ var crypto = require("crypto");
                                   var date = new Date();    
                                   Friend.create({friender: myAccount, friend: friend, added: date, updated: date}, 
                                     function(err, friendShip){
-                                        console.log("Friendship is: " + friendShip);
+                                        // console.log("Friendship is: " + friendShip);
                                         if(err){return callback1(err, null);}
                                         else {
                                             var contact = {name: friendAccount.name, id: friendAccount.id,
@@ -113,7 +113,7 @@ var crypto = require("crypto");
             function done(err, results){
                 if(err){return callback(err, null);}
                 else {
-                    console.log("\n[" + results[0] + "]\n[" + results[1] + "]\n[" + results[2] +"]\n");                    
+                    // console.log("\n[" + results[0] + "]\n[" + results[1] + "]\n[" + results[2] +"]\n");                    
                     if (results[0]) {
                         return callback(null, results[0]);
 //                        return callback(new Error("friendShip already exists"), results[0]);
@@ -140,15 +140,15 @@ var crypto = require("crypto");
                 else {
                     var date = new Date();
                     var friendContact = new Contact({accountId: friend.id, added: date, updated: date});
-                    console.log(friend);
+                    // console.log(friend);
                     account.contacts.push(friendContact);
                     account.save(function(err, result, count){
                         if (err) {return callback1(err);}
                         else {
-                            console.log("Added friend");
+                            // console.log("Added friend");
                             var date = friendContact.added;
                             var meAsContact = new Contact({accountId: account.id, added: date, updated: date});
-                            console.log(".........\n" + meAsContact);
+                            // console.log(".........\n" + meAsContact);
 
                             friend.contacts.push(meAsContact);
                             friend.save(function(err, result, count){
@@ -189,7 +189,7 @@ var crypto = require("crypto");
         });
     });
     AccountSchema.static('login', function(email, password, callback){
-        console.log("In login [" + email + "] [" + password + "]");     
+        // console.log("In login [" + email + "] [" + password + "]");     
         Account.findOne({email:email, password: hashPassword(password)}, callback);
     });
     AccountSchema.statics.findByString = function(searchStr, callback) {
@@ -209,7 +209,7 @@ var crypto = require("crypto");
 //        return this.name.first + " " + this.name.last;
     });
     AccountSchema.static('register', function(email, password, firstName, lastName, registerCallback){
-        console.log("Registering [" + email + "] [" + password + "]");
+        // console.log("Registering [" + email + "] [" + password + "]");
         var user = new Account({email: email, name: {first: firstName, last: lastName},
         password: hashPassword(password)});
         user.save(registerCallback);

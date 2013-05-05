@@ -1,22 +1,26 @@
-module.exports = function(app){
+module.exports = function(server, app){
     var io = require('socket.io');
     var utils = require('connect').utils;
     var cookie = require('cookie');
     var Session = require('connect').middleware.session.Session;
     
-    var sio = io.listen(app.server);
+    var sio = io.listen(server);
     
     sio.configure(function(){
-        sio.set('authorization', function(data, accept){
-            var signedCookies = cookie.parse(data.headers.cookie);
+        sio.set('authorization', function(handshakeData, accept){
+            if(!handshakeData.headers.cookie) {
+                return accept('No cookie', false);
+            }
+            console.log("In sio authorization");
+            var signedCookies = cookie.parse(handshakeData.headers.cookie);
             var cookies = utils.parseSignedCookies(signedCookies, app.sessionSecret);
-            data.sessionId = cookies['express.sid'];
-            data.sessionStore = app.sessionStore;
-            data.sessionStore.get(data.sessionID, function(err, session){
+            handshakeData.sessionID = cookies['express.sid'];
+            handshakeData.sessionStore = app.sessionStore;
+            handshakeData.sessionStore.get(handshakeData.sessionID, function(err, session){
                 if(err || !session) {
                     return accept('Invalid session', false);
                 } else {
-                    data.session = new Session(data,session);
+                    handshakeData.session = new Session(handshakeData, session);
                     accept(null, true);
                 }
             });

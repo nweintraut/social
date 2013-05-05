@@ -236,3 +236,11 @@
 {"ts":1367647187306,"patch":[[{"diffs":[[0,"tion(){\n"],[1,"        return this.name.first\n//"],[0,"        "]],"start1":10209,"start2":10209,"length1":16,"length2":49}]],"length":10747,"saved":false}
 {"ts":1367647190368,"patch":[[{"diffs":[[0,"me.first"],[1,";"],[0,"\n//     "]],"start1":10239,"start2":10239,"length1":16,"length2":17}]],"length":10748,"saved":false}
 {"ts":1367647202691,"patch":[[{"diffs":[[0,"{'name.f"],[-1,"irst"],[1,"ull"],[0,"': {$reg"]],"start1":9792,"start2":9792,"length1":20,"length2":19}]],"length":10747,"saved":false}
+{"contributors":[],"silentsave":false,"ts":1367715812876,"patch":[[{"diffs":[[0,"alse}\n        },"],[1,"console"],[0,"\n        photoUr"]],"start1":875,"start2":875,"length1":32,"length2":39},{"diffs":[[0,"                "],[1," //"],[0,"  console.log(\"M"]],"start1":2070,"start2":2070,"length1":32,"length2":35}]],"length":10757,"saved":false}
+{"ts":1367715822229,"patch":[[{"diffs":[[0,"                "],[1," //"],[0," console.log(\"Fr"]],"start1":2918,"start2":2918,"length1":32,"length2":35}]],"length":10760,"saved":false}
+{"ts":1367715832897,"patch":[[{"diffs":[[0,"                "],[1," //"],[0," console.log(\"\\n"]],"start1":5432,"start2":5432,"length1":32,"length2":35}]],"length":10763,"saved":false}
+{"ts":1367715844582,"patch":[[{"diffs":[[0,"                "],[1," //"],[0," console.log(fri"]],"start1":6937,"start2":6937,"length1":32,"length2":35}]],"length":10766,"saved":false}
+{"ts":1367715858210,"patch":[[{"diffs":[[0,"                "],[1," //"],[0," console.log(\"Ad"]],"start1":7199,"start2":7199,"length1":32,"length2":35},{"diffs":[[0,"                "],[1," //"],[0," console.log(\".."]],"start1":7431,"start2":7431,"length1":32,"length2":35}]],"length":10772,"saved":false}
+{"ts":1367715872120,"patch":[[{"diffs":[[0,"llback){\n       "],[1," //"],[0," console.log(\"In"]],"start1":9422,"start2":9422,"length1":32,"length2":35}]],"length":10775,"saved":false}
+{"ts":1367715880746,"patch":[[{"diffs":[[0,"ck){\n       "],[1," //"],[0," console.log"]],"start1":10439,"start2":10439,"length1":24,"length2":27}]],"length":10778,"saved":false}
+{"ts":1367715927790,"patch":[[{"diffs":[[0,"      },"],[-1,"console"],[0,"\n       "]],"start1":883,"start2":883,"length1":23,"length2":16}]],"length":10771,"saved":false}

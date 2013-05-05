@@ -7,7 +7,7 @@ module.exports = function(app){
     app.get('/accounts/:id/contacts', function(req, res, next){
         if (! req.params.id || req.params.id === "") {return res.send(401);}        
         var accountId = req.params.id === 'me' ? req.session.accountId : req.params.id;     
-        console.log ("Accounts id = " + accountId);
+        // console.log ("Accounts id = " + accountId);
         Friend.find({friender: accountId}, function(err, friends){
             if(err) {return res.send(404);}
             var options = [{path:'friender', select: "email _id name"}, {path: 'friend', select: 'email _id name'}];        
@@ -20,7 +20,7 @@ module.exports = function(app){
                         added: result.added, updated: result.updated, accountId: result.friend});
                         contacts.push(contact);
                     });
-                    console.log("--------\n" + contacts + "\n---------");                       
+                    // console.log("--------\n" + contacts + "\n---------");                       
                     return res.send(contacts);                    
                 }
             });
@@ -37,7 +37,7 @@ module.exports = function(app){
            } else {
 
                if (!account.activity) {account.activity = [];}
-             console.log("[" + account.activity + "]");
+            //  console.log("[" + account.activity + "]");
                return res.send(account.activity);
            }
         });
@@ -104,9 +104,9 @@ module.exports = function(app){
         });       
     });
     app.get('/accounts/:id', function(req, res, next){
-        console.log("in /accounts/:id");
+        // console.log("in /accounts/:id");
         var accountId = req.params.id === 'me' ? req.session.accountId : req.params.id;
-        console.log ("account id = [" + accountId + "]");
+        // console.log ("account id = [" + accountId + "]");
         if (!accountId || accountId === "") {return res.send(400, "No id");}
         Account.findById(accountId)
         .exec(function(err, account){
@@ -116,7 +116,7 @@ module.exports = function(app){
                 return res.send(401, error);
             } else if(req.params.id === "me") {
                 account.isFriend = true;
-                console.log ("In /accounts/:id \n" + account);
+                // console.log ("In /accounts/:id \n" + account);
                 return res.send(JSON.stringify(account));
             } else {
                 Friend.find({friender: req.session.accountId, friend:accountId}, function(err, friend){
@@ -130,7 +130,7 @@ module.exports = function(app){
     });
     app.post('/contacts/find', function(req, res, next){
        var searchStr = req.param('searchStr') ? req.param('searchStr') : null;
-       console.log("SearchStr is [" + searchStr + "]");
+       // console.log("SearchStr is [" + searchStr + "]");
        if (null === searchStr) { return res.send(400);}
        else {
            Account.findByString(searchStr, function onSearchDone(err, accounts) {

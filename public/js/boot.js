@@ -5,6 +5,7 @@ require.config({
      jQuery: '//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min',
      Underscore: 'libs/underscore',
      Backbone: 'libs/backbone',
+     Sockets: '/socket.io/socket.io',
      text: 'libs/text',
      templates: '../templates',
      SocialNetView: 'SocialNetView'

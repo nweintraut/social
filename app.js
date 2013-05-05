@@ -25,7 +25,7 @@ app.configure(function(){
   app.use(express.limit('1mb'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(express.cookieParser('my secret string'));
+  app.use(express.cookieParser());
   app.use(express.session({
       key: 'express.sid',
       secret: app.sessionSecret,
@@ -44,14 +44,15 @@ require('./routes/db')(app);
 require('./routes/session')(app);
 require('./routes/account3')(app);
 require('./routes/account2')(app);
-require('./routes/chat')(app);
+
 app.get('/', routes.index);
 app.get('/users', user.list);
 
-http.createServer(app).listen(app.get('port'), function(){
+var server = http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
 
+require('./routes/chat')(server, app);
 /*
 var Account = require('./models/account');
 var Friend = require('./models/friend');
