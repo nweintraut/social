@@ -20,7 +20,7 @@ module.exports = function(app){
                         added: result.added, updated: result.updated, accountId: result.friend});
                         contacts.push(contact);
                     });
-                    // console.log("--------\n" + contacts + "\n---------");                       
+                    console.log("--------\n" + contacts + "\n---------");                       
                     return res.send(contacts);                    
                 }
             });

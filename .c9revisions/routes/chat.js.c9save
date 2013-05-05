@@ -11,3 +11,4 @@
 {"ts":1367715479021,"patch":[[{"diffs":[[0,"unction("],[1,"server, "],[0,"app){\n  "]],"start1":18,"start2":18,"length1":16,"length2":24}]],"length":1559,"saved":false}
 {"ts":1367715545672,"patch":[[{"diffs":[[0,".listen("],[-1,"app."],[0,"server);"]],"start1":239,"start2":239,"length1":20,"length2":16}]],"length":1555,"saved":false}
 {"contributors":[],"silentsave":false,"ts":1367717399146,"patch":[[{"diffs":[[0,"andshakeData"],[-1,"."],[1,", "],[0,"session);\n  "]],"start1":1075,"start2":1075,"length1":25,"length2":26}]],"length":1556,"saved":false}
+{"contributors":[],"silentsave":false,"ts":1367724019866,"patch":[[{"diffs":[[0,"in(data."],[-1,"i"],[1,"t"],[0,"o).emit("]],"start1":1450,"start2":1450,"length1":17,"length2":17}]],"length":1556,"saved":false}

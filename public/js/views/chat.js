@@ -19,10 +19,10 @@ function(SocialNetView, ChatSessionView, ChatItemView, chatItemTemplate){
             }
         },
         renderCollection: function(collection){
-            console.log("Rendering chat");
           var that = this;
           $('.chat_list').empty();
           collection.each(function(contact){
+              console.log(contact);
               var chatItemView = new ChatItemView({socketEvents: that.socketEvents, model: contact});
               chatItemView.bind('chat:start', that.startChatSession, that);
               var statusHtml = (chatItemView).render().el;
