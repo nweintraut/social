@@ -2,3 +2,4 @@
 {"contributors":[],"silentsave":false,"ts":1367710411528,"patch":[[{"diffs":[[1,"<span class=\"name\"<%= model.name.full %></span>\n<ul class=\"chat_log\">\n</ul>\n<form id=\"chatForm\">\n    <input type=\"text\", name=\"chat\"/>\n    <input type=\"submit\", value=\"Chat\">\n</form>"]],"start1":0,"start2":0,"length1":0,"length2":182}]],"length":182,"saved":false}
 {"contributors":[],"silentsave":false,"ts":1367720988218,"patch":[[{"diffs":[[0,"s=\"name\""],[1,"></span>"],[0,"<%= mode"]],"start1":10,"start2":10,"length1":16,"length2":24}]],"length":190,"saved":false}
 {"ts":1367721016763,"patch":[[{"diffs":[[0,"e\"><"],[-1,"/span><"],[0,"%= m"]],"start1":16,"start2":16,"length1":15,"length2":8}]],"length":183,"saved":false}
+{"contributors":[],"silentsave":false,"ts":1367725422835,"patch":[[{"diffs":[[0,"me.f"],[-1,"ull"],[1,"irst"],[0," %><"]],"start1":31,"start2":31,"length1":11,"length2":12}]],"length":184,"saved":false}
